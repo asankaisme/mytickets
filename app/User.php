@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Ticket;
+use App\TicketAssignment;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -41,6 +42,16 @@ class User extends Authenticatable
 
     public function tickets()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class, 'created_by');
+    }
+
+    public function ticketsAssignedByMe()
+    {
+        return $this->hasMany(TicketAssignment::class, 'assigned_by');
+    }
+
+    public function TicketsAssignedTo()
+    {
+        return $this->hasMany(TicketAssignment::class, 'assigned_to');
     }
 }

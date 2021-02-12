@@ -16,12 +16,14 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('header');
+            $table->string('title');
             $table->text('body', 1000);
             $table->string('img_name')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('created_by');
+            $table->integer('status')->default(1);
+            $table->integer('isActive')->default(1);
 
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restricted');
+            $table->foreign('created_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
