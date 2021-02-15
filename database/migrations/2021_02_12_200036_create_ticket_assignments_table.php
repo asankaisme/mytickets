@@ -26,7 +26,7 @@ class CreateTicketAssignmentsTable extends Migration
 
             $table->foreign('ticket_id')->references('id')->on('tickets')->onUpdate('cascade')->onDelete('restrict');
             $table->foreign('ticket_header_id')->references('id')->on('ticket_headers')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreign('ticket_priority_id')->references('id')->on('ticket_prioroties')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('ticket_priority_id')->references('id')->on('ticket_priorities')->onUpdate('cascade')->onDelete('restrict');
             $table->foreign('assigned_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
             $table->foreign('assigned_to')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
         });

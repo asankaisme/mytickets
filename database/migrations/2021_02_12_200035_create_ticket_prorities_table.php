@@ -13,7 +13,7 @@ class CreateTicketProritiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_prorities', function (Blueprint $table) {
+        Schema::create('ticket_priorities', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->integer('priority_level');

@@ -5,7 +5,7 @@ namespace App;
 use App\User;
 use App\Ticket;
 use App\TicketHeader;
-use App\TicketPrority;
+use App\TicketPriority;
 use Illuminate\Database\Eloquent\Model;
 
 class TicketAssignment extends Model
@@ -33,7 +33,7 @@ class TicketAssignment extends Model
 
     public function ticketPriority()
     {
-        return $this->belongsTo(TicketPrority::class);
+        return $this->belongsTo(TicketPriority::class);
     }
 
     public function assignedBy()

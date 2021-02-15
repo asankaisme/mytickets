@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="{{ asset('template/dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -125,10 +126,10 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="{{ route('tickets.index') }}" class="nav-link">
               <i class="nav-icon far fa-image"></i>
               <p>
-                Gallery
+                Ticket Management
               </p>
             </a>
           </li>
@@ -146,14 +147,19 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h5 class="m-0 text-dark">Page name</h5>
+            {{-- <h5 class="m-0 text-dark">Page name</h5> --}}
           </div><!-- /.col -->
-          <div class="col-sm-6">
+          @yield('breadcrumb')
+          {{-- extend a commented section given below in each page --}}
+          {{-- this div section --}}
+          {{-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">page name</li>
             </ol>
-          </div><!-- /.col -->
+          </div> --}}
+          {{-- the end of breadcrumb --}}
+          <!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -162,7 +168,7 @@
       <div class="container-fluid">
         <!-- Info boxes -->
         <div class="row">
-          
+          @yield('content')
         </div>
       </div><!--/. container-fluid -->
     </section>
@@ -171,15 +177,15 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2020-2021 | Kelum Peiris</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.5
+      <b>Version</b> 1.0.2
     </div>
   </footer>
 </div>
 <!-- ./wrapper -->
-
+@livewireScripts
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>

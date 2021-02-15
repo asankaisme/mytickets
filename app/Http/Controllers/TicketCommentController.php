@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Ticket;
+use App\TicketComment;
 use Illuminate\Http\Request;
 
-class TicketController extends Controller
+class TicketCommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::where('status', 1)->with('user')->get();
-        return view('tickets.index', compact('tickets'));
+        //
     }
 
     /**
@@ -42,10 +41,10 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Ticket  $ticket
+     * @param  \App\TicketComment  $ticketComment
      * @return \Illuminate\Http\Response
      */
-    public function show(Ticket $ticket)
+    public function show(TicketComment $ticketComment)
     {
         //
     }
@@ -53,10 +52,10 @@ class TicketController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Ticket  $ticket
+     * @param  \App\TicketComment  $ticketComment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ticket $ticket)
+    public function edit(TicketComment $ticketComment)
     {
         //
     }
@@ -65,10 +64,10 @@ class TicketController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Ticket  $ticket
+     * @param  \App\TicketComment  $ticketComment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update(Request $request, TicketComment $ticketComment)
     {
         //
     }
@@ -76,10 +75,10 @@ class TicketController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Ticket  $ticket
+     * @param  \App\TicketComment  $ticketComment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ticket $ticket)
+    public function destroy(TicketComment $ticketComment)
     {
         //
     }
