@@ -14,11 +14,11 @@
     <div class="card">
         <div class="card-header" style="background-color: #cacbcc">Manage - Tickets</div>
         <div class="card-body">
-            
+            @livewire('tickets')
         </div>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-5">
 
   </div>
     
