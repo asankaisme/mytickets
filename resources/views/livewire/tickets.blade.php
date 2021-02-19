@@ -16,7 +16,7 @@
               {{ $ticket['title'] }}
             </div>
             <div class="my-2">
-              <p style="font-weight: bold">asa</p>
+              <p style="font-weight: bold">{{ $ticket['created_by']->user['name'] }}</p>
             </div>
           </div>
         @endforeach

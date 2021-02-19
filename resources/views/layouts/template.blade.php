@@ -15,7 +15,10 @@
   <link rel="stylesheet" href="{{ asset('template/dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  @livewireStyles
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  {{-- @livewireStyles --}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -184,8 +187,9 @@
     </div>
   </footer>
 </div>
+
 <!-- ./wrapper -->
-@livewireScripts
+{{-- @livewireScripts --}}
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>
@@ -210,5 +214,13 @@
 
 <!-- PAGE SCRIPTS -->
 <script src="{{ asset('template/dist/js/pages/dashboard2.js') }}"></script>
+<!-- DataTables -->
+<script src="{{ asset('template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('template/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+@yield('tblScripts')
+
 </body>
+
 </html>

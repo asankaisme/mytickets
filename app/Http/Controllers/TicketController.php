@@ -14,7 +14,8 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::where('status', 1)->with('user')->get();
+        $tickets = Ticket::with('createdBy')->get();
+        // dd($tickets);
         return view('tickets.index', compact('tickets'));
     }
 
@@ -36,7 +37,15 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newTicket = new Ticket();
+        $newTicket->title = $request->title;
+        $newTicket->body = $request->body;
+        // $newTicket->img_name = 'aa';
+        $newTicket->created_by = auth()->user()->id;
+        $newTicket->status = 1;
+        $newTicket->isActive = 1;
+        $newTicket->save();
+        return redirect()->back();
     }
 
     /**

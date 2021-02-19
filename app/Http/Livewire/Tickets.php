@@ -13,7 +13,8 @@ class Tickets extends Component
 
     public function mount()
     {
-        $allTickets = Ticket::all();
+        $allTickets = Ticket::where('status', 1)->with('user')->get();
+        // dd($allTickets);
         $this->tickets = $allTickets;
     }
 

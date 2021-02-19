@@ -22,7 +22,7 @@ class Ticket extends Model
         return $this->hasOne(TicketAssignment::class);
     }
 
-    public function user()
+    public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
