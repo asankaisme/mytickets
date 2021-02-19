@@ -3,11 +3,11 @@
 
 
 @section('breadcrumb')
-    <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="/home">Home</a></li>
-            <li class="breadcrumb-item active">Ticket Management</li>
-        </ol>
+  <div class="col-sm-6">
+      <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="/home">Home</a></li>
+          <li class="breadcrumb-item active">Ticket Management</li>
+      </ol>
   </div>
 @endsection
 
@@ -20,7 +20,7 @@
   <div class="col-md-12">
     <div class="row">
       <div class="mx-2 my-2 flex">
-        <button class="btn btn-primary rounded shadow text-white float-right" data-toggle="modal" data-target="#myModal">Add New</button>
+        <button class="btn btn-info rounded shadow text-white float-right" data-toggle="modal" data-target="#myModal">Add New</button>
       </div>
     </div>
     <div class="card">
@@ -40,7 +40,8 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($tickets as $ticket)
+            @if ($tickets->count() > 0)
+              @foreach ($tickets as $ticket)
                 <tr>
                   <td>{{ $ticket->id }}</td>
                   <td>{{ $ticket->title }}</td>
@@ -48,30 +49,40 @@
                   <td>{{ $ticket->created_at->diffForHumans() }}</td>
                   <td>{{ $ticket->status }}</td>
                   <td>
-                    <button type="submit" class="btn btn-xs btn-primary">View</button>
-                    <button type="submit" class="btn btn-xs btn-info">Edit</button>
-                    <button type="submit" class="btn btn-xs btn-danger">Delete</button>
-                    <button type="submit" class="btn btn-xs btn-success">Assign</button>
+                    <div class="btn-group btn-group-sm">
+                      <a href="{{ route('tickets.show', $ticket->id) }}" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
+                      <a href="{{ route('tickets.edit', $ticket->id) }}" class="btn btn-xs btn-info"><i class="fas fa-edit"></i></a>
+                      <a href="#" class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></a>
+                      <a href="#" class="btn btn-xs btn-success"><i class="fas fa-arrow-alt-circle-right"></i></a>
+                    </div>
+                    
                   </td>
                 </tr>
-            @endforeach
+              @endforeach
+            @else
+               {{-- <p>No tickets yet!!</p>  --}}
+            @endif
+            
           </tbody>
         </table>
       </div>
     </div>
 
     {{-- for flash mesages --}}
-    <div class="row">
-      <div class="mx-2 my-2 flex">
-        
+
+    @if (session()->has('message'))
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{ session('message') }}
       </div>
-    </div>
+    @endif
     {{-- end flash messages --}}
+
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
       <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header" style="background-color: #b5b5b5">
           {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> --}}
           <h5 class="modal-title" id="myModalLabel">Add New Ticket</h5>
           </div>
@@ -80,9 +91,14 @@
               <div class="modal-body">
                   <div class="form-group">
                       <input type="text" class="form-control" name="title" placeholder="Ticket Title">
+                      @error('name')
+                          {{ $message }}
+                      @enderror
                   </div>
                   <div class="form-group">
-                      <textarea class="form-control pt-2" name="body" rows="6" placeholder="Please describe the issue you got.."></textarea>
+                      <textarea class="form-control pt-2" name="body" rows="6" placeholder="Please describe the issue you got.."></textarea>@error('name')
+                      {{ $message }}
+                  @enderror
                   </div>
                   <div class="form-group">
                       {{-- <label for="exampleInputFile">File input</label> --}}
@@ -91,8 +107,8 @@
                     </div>
               </div>
               <div class="modal-footer">
-                  <button type="cancel" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
+                  <button type="cancel" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Add New</button>
               </div>
           </form>
           
