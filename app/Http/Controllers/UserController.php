@@ -4,37 +4,32 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function _construct()
+    {
+        return $this->middleware('auth');
+    }
+
     public function index()
     {
         $users = User::with('roles')->get();
-        return view('users.index', compact('users'));
+        $roletypes = Role::all();
+        $sysPermissions = Permission::all();
+        return view('users.index', compact('users', 'roletypes', 'sysPermissions'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
         $validatedUserData = $request->validate([
@@ -52,52 +47,42 @@ class UserController extends Controller
 
         $newUser->save();
         session()->flash('message', 'User created successfully');
-        return redirect()->back();
+        return redirect()->route('users.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    
+    public function show(User $user)
     {
-        $user = User::find($id);
-        return view('users.profile', compact('user'));
+        return view('users.show', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    
+    public function destroy(User $user)
     {
-        //
+        $user->isActive = 0;
+        $user->update();
+        session()->flash('message', 'User deleted successfully.');
+        return redirect()->route('users.index');
+    }
+
+    public function assignRole(Request $request)
+    {
+        //$user->assignRole($role1);
+        $user = User::findOrFail($request->userId);
+        $role = Role::findOrFail($request->roleId);
+        // dd($role);
+        $user->assignRole($role);
     }
 }

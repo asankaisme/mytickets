@@ -1,5 +1,6 @@
 <?php
 
+use App\Ticket;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Middleware\Authenticate;
 
@@ -22,6 +23,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('tickets', 'TicketController')->middleware('auth');   
+Route::resources([
+    'tickets' => 'TicketController',
+    'users' => 'UserController',
+    'roles' => 'RolesController',
+]);
 
-Route::resource('users', 'UserController')->middleware('auth');
+Route::post('/assignRole', 'UserController@assignRole')->name('assignRole');
+
+Route::get('/knowledgeBase', function(){
+    $dataset = Ticket::where('status', 'COMPLETED')->with('user');
+    return view('knowledgebase.index', compact('dataset'));
+})->name('knowledgebase');

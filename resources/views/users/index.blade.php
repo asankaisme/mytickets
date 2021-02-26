@@ -27,57 +27,99 @@
             </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
-            <div class="tab-content">
-                <div class="active tab-pane" id="userlist">
-                    <table id="userList" class="table table-bordered table-striped table-hover table-sm">
-                        <thead>
-                          <tr>
-                            <td>#</td>
-                            <td>Name</td>
-                            <td>Role</td>
-                            <td>Email</td>
-                            <td>Created On</td>
-                            <td>Updated On</td>
-                            <td>isActive</td>
-                            <td></td>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach ($users as $user)
-                              <tr>
-                                  <td>{{ $user->id }}</td>
-                                  <td>{{ $user->name }}</td>
-                                  <td>#</td>
-                                  <td>{{ $user->email }}</td>
-                                  <td>{{ $user->created_at->diffForHumans() }}</td>
-                                  <td>{{ $user->updated_at->diffForHumans() }}</td>
-                                  <td>#</td>
-                                  <td>
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
-                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-xs btn-info"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></a>
-                                        <a href="#" class="btn btn-xs btn-success"><i class="fas fa-arrow-alt-circle-right"></i></a>
-                                      </div>
-                                  </td>
-                              </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
-                </div>
+              <div class="tab-content">
+                  <div class="active tab-pane" id="userlist">
+                      <table id="userList" class="table table-bordered table-striped table-hover table-sm">
+                          <thead>
+                            <tr>
+                              <td>#</td>
+                              <td>Name</td>
+                              <td>Role</td>
+                              <td>Email</td>
+                              <td>Created On</td>
+                              <td>Updated On</td>
+                              <td>isActive</td>
+                              <td></td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->roles->pluck('name') }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->created_at->diffForHumans() }}</td>
+                                    <td>{{ $user->updated_at->diffForHumans() }}</td>
+                                    <td>{{ $user->isActive }}</td>
+                                    <td>
+                                      <div class="btn-group btn-group-sm">
+                                          <a href="{{ route('users.show', $user->id) }}" class="btn btn-xs btn-primary" title="View"><i class="fas fa-eye"></i></a>
+                                          {{-- <a href="{{ route('users.edit', $user->id) }}" class="btn btn-xs btn-info"><i class="fas fa-edit"></i></a> --}}
+                                          {{-- <a href="#" class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></a> --}}
+                                          {{-- <a href="#" class="btn btn-xs btn-success"><i class="fas fa-arrow-alt-circle-right"></i></a> --}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                  </div>
 
-                <!-- /.tab-pane -->
-                <div class="tab-pane" id="assignroles">
-                
-                </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="assignroles">
+                    <div class="col-md-5">
+                      <p>Available user roles in this system :
+                        @foreach ($roletypes as $roletype)
+                            <span>{{ $roletype->name }} |</span>
+                        @endforeach
+                      </p>
 
-                <!-- /.tab-pane -->
-                <div class="tab-pane" id="assignpermissions">
-                
-                </div>
-                <!-- /.tab-pane -->
-            </div>
-            <!-- /.tab-content -->
+                      <div class="card card-info">
+                        <div class="card-header">Assign Roles to Users</div>
+                        <div class="card-body">
+                          <form action="{{ route('assignRole') }}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="userId">Select User</label>
+                                <select name="userId" class="form-control">
+                                  <option value="null">Select User</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}" >{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="roleId">Select Role</label>
+                              <select name="roleId" class="form-control">
+                                <option value="null">Select Role</option>
+                                  @foreach ($roletypes as $roletype)
+                                      <option value="{{ $roletype->id }}">{{ $roletype->name }}</option>
+                                  @endforeach
+                              </select>
+                            </div>
+
+                            <input type="submit" value="Assign Role" class="btn btn-primary float-right">
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="assignpermissions">
+                    Available user roles in this system :
+                    <ul>
+                      @foreach ($sysPermissions as $sysPermission)
+                          <li>{{ $sysPermission->name }}</li>
+                      @endforeach
+                    </ul>
+                      
+                  </div>
+                  <!-- /.tab-pane -->
+              </div>
+              <!-- /.tab-content -->
             </div><!-- /.card-body -->
 
             
