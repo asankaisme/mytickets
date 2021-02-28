@@ -84,5 +84,7 @@ class UserController extends Controller
         $role = Role::findOrFail($request->roleId);
         // dd($role);
         $user->assignRole($role);
+        session()->flash('message', 'The '.$role->name.' role has been successfully assigned to '.$role->name.'.');
+        return redirect()->route('users.index');
     }
 }

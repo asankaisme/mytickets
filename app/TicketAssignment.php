@@ -28,7 +28,7 @@ class TicketAssignment extends Model
 
     public function ticketHeader()
     {
-        return $this->belongsTo(TicketHeader::class)
+        return $this->belongsTo(TicketHeader::class);
     }
 
     public function ticketPriority()

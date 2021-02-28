@@ -87,6 +87,24 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="selectHeader">Select Ticket Header</label>
+                        <select name="selectHeader" class="form-control">
+                            <option value="null">Select Header</option>
+                            @foreach ($supEngs as $supEng)
+                                <option value="{{ $supEng->id }}">{{ $supEng->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectPriority">Select Support Engineer</label>
+                        <select name="selectPriority" class="form-control">
+                            <option value="null">Select Ticket Priority</option>
+                            @foreach ($supEngs as $supEng)
+                                <option value="{{ $supEng->id }}">{{ $supEng->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <input type="submit" value="Assign" class="btn btn-primary btn-sm float-right">
                     </div>
                 </form>

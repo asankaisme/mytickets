@@ -31,7 +31,7 @@
         Manage - Tickets
       </div>
       <div class="card-body">
-        <table id="tiketsList" class="table table-bordered table-striped table-hover table-sm">
+        <table id="tiketsList" class="table table-striped table-hover table-sm">
           <thead>
             <tr>
               <td>#</td>
