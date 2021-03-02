@@ -5,11 +5,11 @@ namespace App;
 use App\TicketAssignment;
 use Illuminate\Database\Eloquent\Model;
 
-class TicketPrority extends Model
+class TicketPriority extends Model
 {
     protected $fillable = [
         'priority_level',
-        'priority_descripton',
+        'priority_description',
         'isActive'
     ];
 

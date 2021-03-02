@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\TicketPriority;
+use App\TicketPrority;
 use Illuminate\Http\Request;
 
 class PriorityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function _construct()
+    {
+        return $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $priorities = TicketPriority::where('isActive', 1)->get();
+        return view('priorities.index', compact('priorities'));
     }
 
     /**
@@ -34,7 +37,15 @@ class PriorityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'priority_level' => 'required|max:255|min:2',
+            'priority_description' => 'required|min:2|max:1000'
+        ]);
+
+        TicketPriority::create($data);
+
+        session()->flash('message', 'New priority level is successfully added.');
+        return redirect()->route('priorities.index');
     }
 
     /**

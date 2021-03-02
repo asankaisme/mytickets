@@ -80,19 +80,20 @@
               </p>
             </a>
           </li>
-
-          <li class="nav-item">
-            <a href="{{ route('tickets.index') }}" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
-              <p>
-                Ticket Management
-              </p>
-            </a>
-          </li>
+          @can('add ticket')
+            <li class="nav-item">
+              <a href="{{ route('tickets.index') }}" class="nav-link">
+                <i class="nav-icon far fa-image"></i>
+                <p>
+                  Ticket Management
+                </p>
+              </a>
+            </li>
+          @endcan
 
           @can('assign ticket')
             <li class="nav-item">
-              <a href="{{ route('tickets.index') }}" class="nav-link">
+              <a href="{{ route('ticketAssignments.index') }}" class="nav-link">
                 <i class="nav-icon far fa-image"></i>
                 <p>
                   Ticket Assignments
@@ -115,7 +116,7 @@
           
           @can('manage priorities')
             <li class="nav-item">
-              <a href="{{ route('users.index') }}" class="nav-link">
+              <a href="{{ route('priorities.index') }}" class="nav-link">
                 <i class="nav-icon far fa-user"></i>
                 <p>
                   Manage Priority Levels

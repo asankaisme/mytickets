@@ -16,14 +16,13 @@ class TicketController extends Controller
 
     public function index()
     {
-        $tickets = Ticket::where('isActive', 1)->with('createdBy')->get();
+        $tickets = auth()->user()->ticket;
         return view('tickets.index', compact('tickets'));
     }
 
     
     public function create()
     {
-        //
         return view('tickets.create');
     }
 
@@ -46,15 +45,10 @@ class TicketController extends Controller
         return redirect()->route('tickets.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Ticket $ticket)
     {
-        $supEngs = User::role(['Support Engineer'])->get();
+        
         return view('tickets.show', compact('ticket', 'supEngs'));
     }
 

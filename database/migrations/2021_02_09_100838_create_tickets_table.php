@@ -19,7 +19,7 @@ class CreateTicketsTable extends Migration
             $table->string('title');
             $table->text('body', 1000);
             $table->string('img_name')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->string('status')->default('NEW');
             $table->integer('isActive')->default(1);
 

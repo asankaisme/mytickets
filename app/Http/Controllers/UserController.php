@@ -82,9 +82,17 @@ class UserController extends Controller
         //$user->assignRole($role1);
         $user = User::findOrFail($request->userId);
         $role = Role::findOrFail($request->roleId);
+
+        if(count($user->roles) > 0){
+            $userExistingRole = Role::findOrFail($user->roles->first()->id);
+            $user->removeRole($userExistingRole); 
+            $user->assignRole($role);
+        }else{
+            $user->assignRole($role);
+        }
         // dd($role);
-        $user->assignRole($role);
-        session()->flash('message', 'The '.$role->name.' role has been successfully assigned to '.$role->name.'.');
+        
+        session()->flash('message', 'Nice! '.$user->name.' has a new role of '.$role->name.' now.');
         return redirect()->route('users.index');
     }
 }

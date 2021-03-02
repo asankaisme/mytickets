@@ -72,7 +72,14 @@ class RolesSeeder extends Seeder
         $user = User::create([
             'name' => 'Sys Admin',
             'email' => 'admin@mytickets.com',
-            'password' => Hash::make('2021KalumP'),
+            'password' => Hash::make('asdf1234'),
+        ]);
+        $user->assignRole($admin);
+
+        $user = User::create([
+            'name' => 'asanka rubasinghe',
+            'email' => 'asankaisme@gmail.com',
+            'password' => Hash::make('asanka123'),
         ]);
         $user->assignRole($admin);
 
@@ -80,7 +87,14 @@ class RolesSeeder extends Seeder
         $user = User::create([
             'name' => 'Client',
             'email' => 'client@mytickets.com',
-            'password' => Hash::make('2021KalumP'),
+            'password' => Hash::make('asdf1234'),
+        ]);
+        $user->assignRole($client);
+
+        $user = User::create([
+            'name' => 'Ruwan Sampath',
+            'email' => 'ruwan@gmail.com',
+            'password' => Hash::make('asdf1234'),
         ]);
         $user->assignRole($client);
 
@@ -88,7 +102,14 @@ class RolesSeeder extends Seeder
         $user = User::create([
             'name' => 'Coordinator',
             'email' => 'coordinator@mytickets.com',
-            'password' => Hash::make('2021KalumP'),
+            'password' => Hash::make('asdf1234'),
+        ]);
+        $user->assignRole($coordinator);
+
+        $user = User::create([
+            'name' => 'Janaka Perera',
+            'email' => 'janaka@gmail.com',
+            'password' => Hash::make('asdf1234'),
         ]);
         $user->assignRole($coordinator);
 
@@ -96,7 +117,15 @@ class RolesSeeder extends Seeder
         $user = User::create([
             'name' => 'Support Engineers',
             'email' => 'supportengineer@mytickets.com',
-            'password' => Hash::make('2021KalumP'),
+            'password' => Hash::make('asdf1234'),
+        ]);
+        $user->assignRole($supportEng);
+
+        //support engineer
+        $user = User::create([
+            'name' => 'Sudesh Ranasinghe',
+            'email' => 'sudesh@gmail.com',
+            'password' => Hash::make('asdf1234'),
         ]);
         $user->assignRole($supportEng);
 
@@ -104,7 +133,7 @@ class RolesSeeder extends Seeder
         $user = User::create([
             'name' => 'L2 Engineer',
             'email' => 'l2engineer@mytickets.com',
-            'password' => Hash::make('2021KalumP'),
+            'password' => Hash::make('asdf1234'),
         ]);
         $user->assignRole($l2Eng);
     }

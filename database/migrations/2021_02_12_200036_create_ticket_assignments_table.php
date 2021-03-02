@@ -16,12 +16,12 @@ class CreateTicketAssignmentsTable extends Migration
         Schema::create('ticket_assignments', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('ticket_id');
+            $table->unsignedBigInteger('ticket_id')->nullable();
             $table->unsignedBigInteger('ticket_header_id')->nullable();
             $table->unsignedBigInteger('ticket_priority_id')->nullable();
             $table->unsignedBigInteger('assigned_by')->nullable();
             $table->unsignedBigInteger('assigned_to')->nullable();
-            $table->integer('status')->default(1);
+            $table->string('status')->default(1);
             $table->integer('isActive')->default(1);
 
             $table->foreign('ticket_id')->references('id')->on('tickets')->onUpdate('cascade')->onDelete('restrict');

@@ -17,7 +17,7 @@ class CreateTicketHeadersTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('hTitle');
-            $table->string('hDescripton');
+            $table->string('hDescription');
             $table->integer('isActive')->default(1);
         });
     }

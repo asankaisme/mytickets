@@ -4,7 +4,7 @@
   <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="/home">Home</a></li>
-          <li class="breadcrumb-item"><a href="{{ route('tickets.index') }}">Ticket Management</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('ticketAssignments.index') }}">Ticket Assignments</a></li>
           <li class="breadcrumb-item active">#{{ $ticket->id }}</li>
       </ol>
   </div>
@@ -41,20 +41,7 @@
                     </div>
                 </div>
                 <div>
-                    <a href="{{ route('tickets.index') }}" class="btn btn-outline-dark btn-sm float-right">Back</a>
-
-                    @can('delete ticket')
-                        <form action="{{ route('tickets.destroy', $ticket->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" value="Delete" class="btn btn-danger btn-sm float-right mx-1">
-                        </form>
-                    @endcan
-                    
-                    @can('edit ticket')
-                        <a href="{{ route('tickets.edit', $ticket->id) }}" class="btn btn-primary btn-sm float-right">Edit</a>
-                    @endcan
-                    
+                    <a href="{{ route('ticketAssignments.index') }}" class="btn btn-outline-dark btn-sm float-right">Back</a>
                 </div>
             </div>
         </div>
@@ -71,12 +58,14 @@
             </div>
         </div>
 
-        {{-- <div class="card card-danger card-outline">
-            <div class="card-header" style="background-color: #eeeeee">
+        <div class="card card-danger card-outline">
+            <div class="card-header" style="background-color: #e9e3aa">
                 Assign This Ticket
             </div>
             <div class="card-body">
-                <form action="" method="post">
+                <form action="{{ route('ticketAssignments.store') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="ticketId" value="{{ $ticket->id }}">
                     <div class="form-group">
                         <label for="selectSupEng">Select Support Engineer</label>
                         <select name="selectSupEng" class="form-control">
@@ -90,25 +79,26 @@
                         <label for="selectHeader">Select Ticket Header</label>
                         <select name="selectHeader" class="form-control">
                             <option value="null">Select Header</option>
-                            @foreach ($supEngs as $supEng)
-                                <option value="{{ $supEng->id }}">{{ $supEng->name }}</option>
+                            @foreach ($headers as $header)
+                                <option value="{{ $header->id }}">{{ $header->hTitle }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="selectPriority">Select Support Engineer</label>
+                        <label for="selectPriority">Select Severity Level</label>
                         <select name="selectPriority" class="form-control">
-                            <option value="null">Select Ticket Priority</option>
-                            @foreach ($supEngs as $supEng)
-                                <option value="{{ $supEng->id }}">{{ $supEng->name }}</option>
+                            <option value="null">Select Severity Level</option>
+                            @foreach ($priorityLevels as $priorityLevel)
+                                <option value="{{ $priorityLevel->id }}">{{ $priorityLevel->priority_level }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Assign" class="btn btn-primary btn-sm float-right">
+                        <input type="reset" value="Clear" class="btn btn-outline-dark btn-sm float-right mx-1">
                     </div>
                 </form>
             </div>
-        </div> --}}
+        </div>
     </div>
 @endsection

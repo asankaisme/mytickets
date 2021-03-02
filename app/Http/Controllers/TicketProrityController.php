@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class TicketProrityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function _construct()
+    {
+        return $this->middleware('auth');
+    }
+    
     public function index()
     {
         //

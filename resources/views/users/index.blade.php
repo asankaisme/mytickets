@@ -106,7 +106,6 @@
                       </div>
                     </div>
                   </div>
-
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="assignpermissions">
                     Available user roles in this system :
@@ -115,24 +114,21 @@
                           <li>{{ $sysPermission->name }}</li>
                       @endforeach
                     </ul>
-                      
                   </div>
                   <!-- /.tab-pane -->
               </div>
               <!-- /.tab-content -->
             </div><!-- /.card-body -->
-
-            
-
         </div>
-    </div>
-
         @if (session()->has('message'))
             <div class="alert alert-success alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               {{ session('message') }}
             </div>
         @endif
+    </div>
+
+        
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

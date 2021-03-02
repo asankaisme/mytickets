@@ -14,7 +14,8 @@ class TicketHeaderController extends Controller
 
     public function index()
     {
-        return view('headers.index');
+        $headers = TicketHeader::where('isActive', 1)->get();
+        return view('headers.index', compact('headers'));
     }
 
     
@@ -43,20 +44,36 @@ class TicketHeaderController extends Controller
     }
 
     
-    public function edit(TicketHeader $ticketHeader)
+    public function edit($id)
     {
-        //
+        $header = TicketHeader::findOrFail($id);
+        return view('headers.edit', compact('header'));
     }
 
     
-    public function update(Request $request, TicketHeader $ticketHeader)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'hTitle' => 'required|max:255|min:2',
+            'hDescription' => 'required|min:2|max:1000'
+        ]);
+
+        $header = TicketHeader::findOrFail($id);
+        $header->update($data);
+
+        session()->flash('message', 'Ticket header is successfully updated.');
+        return redirect()->route('headers.index');
+
     }
 
     
-    public function destroy(TicketHeader $ticketHeader)
+    public function destroy($id)
     {
-        //
+        $header = TicketHeader::findOrFail($id);
+        $header->isActive = 0;
+        $header->update();
+        session()->flash('message', 'Ticket header is successfully deleted.');
+        return redirect()->route('headers.index');
+
     }
 }

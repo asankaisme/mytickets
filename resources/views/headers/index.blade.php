@@ -25,9 +25,37 @@
                         <td></td>
                     </tr>
                 </thead>
+                <tbody>
+                    @foreach ($headers as $header)
+                        <tr>
+                            <td>{{ $header->id }}</td>
+                            <td>{{ $header->hTitle }}</td>
+                            <td>{{ $header->hDescription }}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{{ route('headers.edit', $header->id) }}" title="Edit" class="btn btn-xs btn-primary"><i class="fas fa-edit"></i></a>
+                                    <form action="{{ route('headers.destroy', $header->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                
+                            </td>
+                        </tr>    
+                    @endforeach
+                </tbody>
             </table>
           </div>
       </div>
+      @if (session()->has('message'))
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{ session('message') }}
+      </div>
+    @endif
   </div>
     <div class="col-md-4">
         <div class="card card-info card-outline">
@@ -42,7 +70,7 @@
                         <input type="text" name="hTitle" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="hDescription">Header Title</label>
+                        <label for="hDescription">Description</label>
                         <textarea name="hDescription" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
