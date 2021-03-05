@@ -38,11 +38,11 @@ class TicketAssignment extends Model
 
     public function assignedBy()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'assigned_by');
     }
 
     public function assignedTo()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'assigned_to');
     }
 }

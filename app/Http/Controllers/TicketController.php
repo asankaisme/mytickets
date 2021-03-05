@@ -48,16 +48,11 @@ class TicketController extends Controller
     
     public function show(Ticket $ticket)
     {
-        
-        return view('tickets.show', compact('ticket', 'supEngs'));
+        $users = User::all();
+        return view('tickets.show', compact('ticket', 'users'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Ticket $ticket)
     {
         // dd($ticket->id);
@@ -65,13 +60,7 @@ class TicketController extends Controller
         return view('tickets.edit', compact('ticket'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Ticket $ticket)
     {
         $data = $request->validate([
@@ -84,12 +73,7 @@ class TicketController extends Controller
         return redirect()->route('tickets.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(Ticket $ticket)
     {
         //record will not be actually deleted.

@@ -32,9 +32,9 @@ class TicketAssignmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'selectSupEng' => ['required'],
-            'selectHeader' => ['required'],
-            'selectPriority' => ['required'],
+            'selectSupEng' => 'required',
+            'selectHeader' => 'required',
+            'selectPriority' => 'required',
         ]);
 
         $ta = new TicketAssignment();

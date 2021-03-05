@@ -40,22 +40,27 @@
                         <p>Author : <a href="{{ route('users.show', $ticket->createdBy->id) }}"><strong>{{ $ticket->createdBy->name }}</strong></a>  created this ticket on <strong>{{ $ticket->created_at }}</strong> <span class="time"><i class="fas fa-clock"></i></span> <span style="color: gray">{{ $ticket->created_at->diffForHumans() }}</span> </p>
                     </div>
                 </div>
-                <div>
-                    <a href="{{ route('tickets.index') }}" class="btn btn-outline-dark btn-sm float-right">Back</a>
-
-                    @can('delete ticket')
-                        <form action="{{ route('tickets.destroy', $ticket->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" value="Delete" class="btn btn-danger btn-sm float-right mx-1">
-                        </form>
-                    @endcan
-                    
-                    @can('edit ticket')
-                        <a href="{{ route('tickets.edit', $ticket->id) }}" class="btn btn-primary btn-sm float-right">Edit</a>
-                    @endcan
-                    
-                </div>
+                @if ($ticket->status == "NEW")
+                    <div>
+                        <a href="{{ route('tickets.index') }}" class="btn btn-outline-dark btn-sm float-right">Back</a>
+                        @can('delete ticket')
+                            <form action="{{ route('tickets.destroy', $ticket->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" value="Delete" class="btn btn-danger btn-sm float-right mx-1">
+                            </form>
+                        @endcan
+                        
+                        @can('edit ticket')
+                            <a href="{{ route('tickets.edit', $ticket->id) }}" class="btn btn-primary btn-sm float-right">Edit</a>
+                        @endcan
+                    </div>
+                @else
+                    <div>
+                        <a href="{{ route('tickets.index') }}" class="btn btn-outline-dark btn-sm float-right">Back</a>
+                    </div>
+                @endif
+                
             </div>
         </div>
     </div>
@@ -68,47 +73,17 @@
                 <div class="time-label pb-2">
                     Ticket Status : <span class="bg-green rounded p-2">{{ $ticket->status }}</span>
                 </div>
+                <div>
+                    <p>
+                        Assigned To : {{ $ticket->ticketAssignment->assignedTo->name }}
+                    </p>
+                    <p>
+                        Assigned By : {{ $ticket->ticketAssignment->assignedBy->name }}
+                    </p>
+                </div>
             </div>
         </div>
 
-        {{-- <div class="card card-danger card-outline">
-            <div class="card-header" style="background-color: #eeeeee">
-                Assign This Ticket
-            </div>
-            <div class="card-body">
-                <form action="" method="post">
-                    <div class="form-group">
-                        <label for="selectSupEng">Select Support Engineer</label>
-                        <select name="selectSupEng" class="form-control">
-                            <option value="null">Select Support Engineer</option>
-                            @foreach ($supEngs as $supEng)
-                                <option value="{{ $supEng->id }}">{{ $supEng->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="selectHeader">Select Ticket Header</label>
-                        <select name="selectHeader" class="form-control">
-                            <option value="null">Select Header</option>
-                            @foreach ($supEngs as $supEng)
-                                <option value="{{ $supEng->id }}">{{ $supEng->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="selectPriority">Select Support Engineer</label>
-                        <select name="selectPriority" class="form-control">
-                            <option value="null">Select Ticket Priority</option>
-                            @foreach ($supEngs as $supEng)
-                                <option value="{{ $supEng->id }}">{{ $supEng->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Assign" class="btn btn-primary btn-sm float-right">
-                    </div>
-                </form>
-            </div>
-        </div> --}}
+        
     </div>
 @endsection

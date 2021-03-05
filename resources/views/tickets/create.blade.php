@@ -38,9 +38,9 @@
                           </div>
                       </div>
                       <div class="modal-footer">
-                           <a href="{{ route('tickets.index') }}" class="btn btn-outline-dark">Back</a>
-                          <button type="reset" class="btn btn-default" data-dismiss="modal">Clear</button>
-                          <button type="submit" class="btn btn-primary">Add New</button>
+                           <a href="{{ route('tickets.index') }}" class="btn btn-sm btn-outline-dark">Back</a>
+                          <button type="reset" class="btn btn-sm btn-default" data-dismiss="modal">Clear</button>
+                          <button type="submit" class="btn btn-sm btn-primary">Add New</button>
                       </div>
                   </form>
             </div>
