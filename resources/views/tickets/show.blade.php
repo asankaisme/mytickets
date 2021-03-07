@@ -73,14 +73,23 @@
                 <div class="time-label pb-2">
                     Ticket Status : <span class="bg-green rounded p-2">{{ $ticket->status }}</span>
                 </div>
-                <div>
-                    <p>
-                        Assigned To : {{ $ticket->ticketAssignment->assignedTo->name }}
-                    </p>
-                    <p>
-                        Assigned By : {{ $ticket->ticketAssignment->assignedBy->name }}
-                    </p>
-                </div>
+                <hr>
+                @if ($ticket->status == 'ASSIGNED')
+                    <div>
+                        <div class="form-group">
+                            <label for="assigned_to">Assigned To</label>
+                            <input type="text" name="assigned_to" class="form-control form-control-sm" value="{{ $ticket->ticketAssignment->assignedTo->name }}" disabled>
+                            <p style="color: gray">on {{ $ticket->ticketAssignment['created_at'] }} <span class="time"><i class="fas fa-clock"></i></span> <span style="color: gray">{{ $ticket->ticketAssignment['created_at']->diffForHumans() }}</span> </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="assigned_by">Assigned By</label>
+                            <input type="text" name="assigned_by" class="form-control form-control-sm" value="{{ $ticket->ticketAssignment->assignedBy->name }}" disabled>
+                        </div>
+                    </div>
+                @else
+                    <p>This ticket will be assigned to a support engineer very soon.</p>
+                @endif
+                
             </div>
         </div>
 

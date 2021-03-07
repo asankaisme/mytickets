@@ -49,7 +49,7 @@ class TicketAssignmentController extends Controller
         $actualTicket = Ticket::findOrFail($request->ticketId);
         $actualTicket->status = "ASSIGNED";
         $actualTicket->update();
-        session()->flash('message', 'The ticket #'.$request->ticketId.' has been succefully assigned to SE - '.$request->selectSupEng.'.');
+        session()->flash('message', 'The ticket #'.$request->ticketId.' has been succefully assigned.');
         return redirect()->route('ticketAssignments.index');
     }
 
