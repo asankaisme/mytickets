@@ -75,9 +75,21 @@ class TicketAssignmentController extends Controller
         //
     }
 
-    
-    public function destroy(TicketAssignment $ticketAssignment)
+    public function detachTicket($id)
     {
-        //
+        $ticketAssigned = TicketAssignment::findOrFail($id);
+        $ticketId = $ticketAssigned->ticket->id;
+        $getTicket = Ticket::findOrFail($ticketId);
+        $getTicket->status = "DETACHED";
+        $getTicket->update();
+        // $ticketAssigned->isActive = 0;
+        $ticketAssigned->delete();
+        session()->flash('message', 'This ticket was succesfully detached. Assign the ticket to someone else.');
+        return redirect()->route('ticketAssignments.index');
+    }
+    
+    public function destroy($id)
+    {
+
     }
 }

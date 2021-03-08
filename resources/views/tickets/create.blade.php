@@ -20,20 +20,20 @@
                     @csrf
                       <div class="modal-body">
                           <div class="form-group">
-                              <input type="text" class="form-control" name="title" placeholder="Ticket Title" value="{{ old('title') }}">
+                              <input type="text" class="form-control form-control-sm" name="title" placeholder="Ticket Title" value="{{ old('title') }}">
                               @error('title')
                                   <p style="color: red">{{ $message }}</p>
                               @enderror
                           </div>
                           <div class="form-group">
-                              <textarea class="form-control pt-2" name="body" rows="6" value="{{ old('body') }}" placeholder="Please describe the issue you got.."></textarea>
+                              <textarea class="form-control form-control-sm pt-2" name="body" rows="6" value="{{ old('body') }}" placeholder="Please describe the issue you got.."></textarea>
                                 @error('body')
                                     <p style="color: red">{{ $message }}</p>
                                 @enderror
                           </div>
                           <div class="form-group">
                               {{-- <label for="exampleInputFile">File input</label> --}}
-                              <input type="file" name="img_name">
+                              <input type="file" name="img_name" >
                               <p class="help-block">Attach a screenshot</p>
                           </div>
                       </div>

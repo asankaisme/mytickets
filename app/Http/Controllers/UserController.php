@@ -95,4 +95,23 @@ class UserController extends Controller
         session()->flash('message', 'Nice! '.$user->name.' has a new role of '.$role->name.' now.');
         return redirect()->route('users.index');
     }
+
+    public function showProfile($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.profile', compact('user'));
+    }
+
+    public function uploadUserImage(Request $request)
+    {
+        if($request->hasFile('usr_image')){
+            $fileName = $request->usr_image->getClientOriginalName();
+            $user = User::findOrFail(auth()->user()->id);
+            $user->usr_image = $fileName;
+            $user->update();
+            $request->usr_image->storeAs('usr_images', $fileName, 'public');
+            return redirect()->back();
+        }
+        
+    }
 }

@@ -25,6 +25,11 @@ Route::resources([
 
 Route::post('/assignRole', 'UserController@assignRole')->name('assignRole');
 
+Route::get('/detachTicket/{id}', 'TicketAssignmentController@detachTicket')->name('detachTicket')->middleware('auth');
+
+Route::get('/users/profile/{id}', 'UserController@showProfile')->middleware('auth')->name('showProfile');
+Route::post('/uploadUsrImage', 'UserController@uploadUserImage')->middleware('auth')->name('uploadUsrImage');
+
 Route::get('/knowledgeBase', function(){
     $dataset = Ticket::where('status', 'COMPLETED')->with('user');
     return view('knowledgebase.index', compact('dataset'));

@@ -40,7 +40,7 @@
                         <p>Author : <a href="{{ route('users.show', $ticket->createdBy->id) }}"><strong>{{ $ticket->createdBy->name }}</strong></a>  created this ticket on <strong>{{ $ticket->created_at }}</strong> <span class="time"><i class="fas fa-clock"></i></span> <span style="color: gray">{{ $ticket->created_at->diffForHumans() }}</span> </p>
                     </div>
                 </div>
-                @if ($ticket->status == "NEW")
+                @if (($ticket->status == "NEW") || ($ticket->status == "DETACHED"))
                     <div>
                         <a href="{{ route('tickets.index') }}" class="btn btn-outline-dark btn-sm float-right">Back</a>
                         @can('delete ticket')
@@ -70,9 +70,28 @@
                 Additional Infomation
             </div>
             <div class="card-body">
-                <div class="time-label pb-2">
-                    Ticket Status : <span class="bg-green rounded p-2">{{ $ticket->status }}</span>
-                </div>
+                @if ($ticket->status == "NEW")
+                    <div class="time-label pb-2">
+                        Ticket Status : <span class="bg-yellow rounded p-2">{{ $ticket->status }}</span>
+                    </div>
+                @elseif ($ticket->status == "ASSIGNED")
+                    <div class="time-label pb-2">
+                        Ticket Status : <span class="bg-blue rounded p-2">{{ $ticket->status }}</span>
+                    </div>
+                @elseif ($ticket->status == "ACCEPTED")
+                    <div class="time-label pb-2">
+                        Ticket Status : <span class="bg-purple rounded p-2">{{ $ticket->status }}</span>
+                    </div>
+                @elseif ($ticket->status == "COMPLETED")
+                    <div class="time-label pb-2">
+                        Ticket Status : <span class="bg-green rounded p-2">{{ $ticket->status }}</span>
+                    </div>
+                @else
+                    <div class="time-label pb-2">
+                        Ticket Status : <span class="bg-gray rounded p-2">{{ $ticket->status }}</span>
+                    </div>
+                @endif
+                
                 <hr>
                 @if ($ticket->status == 'ASSIGNED')
                     <div>
@@ -92,7 +111,5 @@
                 
             </div>
         </div>
-
-        
     </div>
 @endsection
