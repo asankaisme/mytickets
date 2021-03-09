@@ -5,9 +5,12 @@ namespace App;
 use App\User;
 use App\TicketAssignment;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Ticket extends Model
 {
+    use LogsActivity;
+    
     protected $fillable = [
         'title',
         'body',
@@ -16,6 +19,11 @@ class Ticket extends Model
         'status',
         'isActive'
     ];
+
+    protected static $logAttributes = ['title', 'body'];
+    protected static $recordEvents = ['created', 'updated','deleted'];
+    protected static $logName = 'Ticket';
+    protected static $logOnlyDirty = true;
 
     public function ticketAssignment()
     {

@@ -25,7 +25,12 @@
             <p class="text-muted text-center">{{ Auth::user()->roles->pluck('name') }}</p>
             <ul class="list-group list-group-unbordered mb-3">
             <li class="list-group-item">
-                <b>Tickets Raised</b> <a class="float-right">22</a>
+                @if (count(Auth::user()->ticket) != 0)
+                <b>Tickets Raised</b> <a class="float-right">{{ count(Auth::user()->ticket) }}</a>
+                @else
+                    
+                @endif
+                
             </li>
             </ul>
         </div>

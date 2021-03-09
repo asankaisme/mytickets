@@ -33,10 +33,15 @@ class TicketController extends Controller
             'title' => 'required|max:255',  
             'body' => 'required|max:1000'
         ]);
-
+        
         $newTicket = new Ticket();
         $newTicket->title = $request->title;
         $newTicket->body = $request->body;
+
+        if($request->hasFile('img_name')){
+            $newTicket->img_name = $request->img_name->getClientOriginalName();
+        }
+
         $newTicket->created_by = auth()->user()->id;
         $newTicket->status = 'NEW';
         $newTicket->isActive = 1;

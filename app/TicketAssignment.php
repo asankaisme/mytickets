@@ -7,9 +7,12 @@ use App\Ticket;
 use App\TicketHeader;
 use App\TicketPriority;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class TicketAssignment extends Model
 {
+    use LogsActivity;
+    
     protected $fillable = [
         'ticket_id',
         'ticket_header_id',
@@ -18,8 +21,12 @@ class TicketAssignment extends Model
         'assigned_to',
         'status',
         'isActive'
-
     ];
+
+    protected static $logAttributes = ['ticket_header_id', 'ticket_priority_id', 'assigned_to'];
+    protected static $logName = 'Ticket Assignment';
+    protected static $recordEvents = ['created', 'updated','deleted'];
+    protected static $logOnlyDirty = true;
 
     public function ticket()
     {

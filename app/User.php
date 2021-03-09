@@ -6,12 +6,13 @@ use App\Ticket;
 use App\TicketAssignment;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +25,11 @@ class User extends Authenticatable
         'password', 
         'usr_image'
     ];
+
+    protected static $logAttributes = ['name', 'email'];
+    protected static $logName = 'User';
+    protected static $recordEvents = ['created', 'updated','deleted'];
+    protected static $logOnlyDirty = true;
 
     /**
      * The attributes that should be hidden for arrays.

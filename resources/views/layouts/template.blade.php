@@ -145,7 +145,7 @@
           
           @can('view sysLog')
             <li class="nav-item">
-              <a href="{{ route('users.index') }}" class="nav-link">
+              <a href="{{ route('activityLog') }}" class="nav-link">
                 <i class="nav-icon far fa-user"></i>
                 <p>
                   System Logs

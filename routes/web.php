@@ -3,6 +3,7 @@
 use App\Ticket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Spatie\Activitylog\Models\Activity;
 use Illuminate\Auth\Middleware\Authenticate;
 
 
@@ -34,3 +35,9 @@ Route::get('/knowledgeBase', function(){
     $dataset = Ticket::where('status', 'COMPLETED')->with('user');
     return view('knowledgebase.index', compact('dataset'));
 })->name('knowledgebase');
+
+//this route will logs all activities
+Route::get('/activityLog', function(){
+    $activities = Activity::all();
+    return view('activitylogs.index', compact('activities'));
+})->middleware('auth')->name('activityLog');

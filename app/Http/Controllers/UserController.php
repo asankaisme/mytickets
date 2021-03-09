@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -106,6 +107,9 @@ class UserController extends Controller
     {
         if($request->hasFile('usr_image')){
             $fileName = $request->usr_image->getClientOriginalName();
+            if(auth()->user()->usr_image){
+                Storage::delete('/public/usr_images/'.auth()->user()->usr_image);
+            }
             $user = User::findOrFail(auth()->user()->id);
             $user->usr_image = $fileName;
             $user->update();
