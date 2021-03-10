@@ -16,7 +16,7 @@
         <div class="card-body box-profile">
             <div class="text-center">
                 @if (Auth::user()->usr_image == null)
-                    <img src="{{ asset('/storage/usr_images/noImage.jpg') }}" class="profile-user-img img-fluid img-circle" alt="User Image">
+                    <img src="{{ asset('template/docs/assets/img/noImage.jpg') }}" class="profile-user-img img-fluid img-circle" alt="User Image">
                 @else
                     <img class="profile-user-img img-fluid img-circle" src="{{ asset('/storage/usr_images/'.Auth::user()->usr_image) }}" alt="User profile picture">
                 @endif
@@ -87,26 +87,60 @@
             </div>
             <div class="card-body">
                 <div>
-                    <p>Change Password Credentials</p>
-                    <form action="#" method="post">
+                    <div class="form-group">
+                        <p>Change my password</p>
+                        <a href="{{ route('password.request') }}" class="btn btn-sm btn-outline-info">Change</a>
+                    </div>
+                    
+                    {{-- <form method="POST" action="{{ route('password.update') }}">
                         @csrf
-                        <div class="form-group col-md-5">
-                            <label for="old_password">Old Password</label>
-                            <input type="password" name="old_password" class="form-control form-control-sm">
+
+                        <input type="hidden" name="token" value="{{ $token }}">
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
-                        <div class="form-group col-md-5">
-                            <label for="new_password">New Password</label>
-                            <input type="password" name="new_password" class="form-control form-control-sm">
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
-                        <div class="form-group col-md-5">
-                            <label for="password_confirmed">Confirm Password</label>
-                            <input type="password" name="password_confirmed" class="form-control form-control-sm">
+
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
                         </div>
-                        <div class="form-group col-md-5">
-                            <input type="reset" value="Clear" class="btn btn-sm btn-default">
-                            <input type="submit" value="Update" class="btn btn-sm btn-info">
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Reset Password') }}
+                                </button>
+                            </div>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
                 <hr>
                 <p>Upload New User Photo</p>
