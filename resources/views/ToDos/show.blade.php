@@ -104,14 +104,6 @@
                             <label for="assigned_by">Assigned By</label>
                             <input type="text" name="assigned_by" class="form-control form-control-sm" value="{{ $ticket->ticketAssignment->assignedBy->name }}" disabled>
                         </div>
-                        <div class="form-group">
-                            <label for="ticketHeader">Ticket Header</label>
-                            <input type="text" name="ticketHeader" class="form-control form-control-sm" value="{{ $ticket->ticketAssignment->ticketHeader->hTitle }}" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="assigned_by">Assigned By</label>
-                            <input type="text" name="assigned_by" class="form-control form-control-sm" value="{{ $ticket->ticketAssignment->assignedBy->name }}" disabled>
-                        </div>
                     </div>
                 @else
                     <p>This ticket will be assigned to a support engineer very soon.</p>

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\TicketPriority;
-use App\TicketPrority;
+use App\Rules\Uppercase;
 use Illuminate\Http\Request;
+use Validator;
 
 class PriorityController extends Controller
 {
@@ -38,8 +39,8 @@ class PriorityController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'priority_level' => 'required|max:255|min:2',
-            'priority_description' => 'required|min:2|max:1000'
+            'priority_level' => ['required', 'max:255','min:2', new Uppercase],
+            'priority_description' => ['required', 'min:2', 'max:1000'],
         ]);
 
         TicketPriority::create($data);

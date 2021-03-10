@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\TicketPrority;
+use App\Todo;
 use Illuminate\Http\Request;
 
-class TicketProrityController extends Controller
+class TodoController extends Controller
 {
     public function _construct()
     {
         return $this->middleware('auth');
     }
-    
+
     public function index()
     {
-        //
+        return view('ToDos.index');
     }
 
     /**
@@ -41,10 +41,10 @@ class TicketProrityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TicketPrority  $ticketPrority
+     * @param  \App\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function show(TicketPrority $ticketPrority)
+    public function show(Todo $todo)
     {
         //
     }
@@ -52,10 +52,10 @@ class TicketProrityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TicketPrority  $ticketPrority
+     * @param  \App\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function edit(TicketPrority $ticketPrority)
+    public function edit(Todo $todo)
     {
         //
     }
@@ -64,10 +64,10 @@ class TicketProrityController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TicketPrority  $ticketPrority
+     * @param  \App\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TicketPrority $ticketPrority)
+    public function update(Request $request, Todo $todo)
     {
         //
     }
@@ -75,10 +75,10 @@ class TicketProrityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TicketPrority  $ticketPrority
+     * @param  \App\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TicketPrority $ticketPrority)
+    public function destroy(Todo $todo)
     {
         //
     }

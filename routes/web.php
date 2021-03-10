@@ -22,6 +22,7 @@ Route::resources([
     'headers' => 'TicketHeaderController',
     'ticketAssignments' => 'ticketAssignmentController',
     'priorities' => 'PriorityController',
+    'Todos' => 'TodoController',
 ]);
 
 Route::post('/assignRole', 'UserController@assignRole')->name('assignRole');
