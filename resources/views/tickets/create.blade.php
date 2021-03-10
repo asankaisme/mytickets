@@ -16,7 +16,7 @@
                 Create New Ticket
             </div>
             <div class="card-body">
-                <form action="{{ route('tickets.store') }}" method="POST">
+                <form action="{{ route('tickets.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                       <div class="modal-body">
                           <div class="form-group">

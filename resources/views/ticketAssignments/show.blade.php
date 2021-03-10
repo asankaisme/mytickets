@@ -16,24 +16,28 @@
             <div class="card-header" style="background-color: #eeeeee">
                 Details of Ticket #{{ $ticket->id }}
                 <span class="float-right">
-                    @if ($ticket->ticketAssignment->ticketPriority->priority_level == "ONE")
-                        <i class="fas fa-star"></i>
-                    @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "TWO")
-                        @for ($i = 0; $i < 2; $i++)
+                    @if ($ticket->status == "ASSIGNED")
+                        @if ($ticket->ticketAssignment->ticketPriority->priority_level == "ONE")
                             <i class="fas fa-star"></i>
-                        @endfor
-                    @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "THREE")
-                        @for ($i = 0; $i < 3; $i++)
-                            <i class="fas fa-star"></i>
-                        @endfor
-                    @else 
-                        @for ($i = 0; $i < 4; $i++)
-                            <i class="fas fa-star"></i>
-                        @endfor
+                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "TWO")
+                            @for ($i = 0; $i < 2; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "THREE")
+                            @for ($i = 0; $i < 3; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "FOUR")
+                            @for ($i = 0; $i < 4; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                        @else
+                            {{-- <p class="" style="color: gray">Await rating</p>     --}}
+                        @endif
+                    @else
+                            
                     @endif
-                    
                 </span>
-                
             </div>
             <div class="card-body">
                 
@@ -48,7 +52,7 @@
 
                 <div>
                     @if (($ticket->img_name != null))
-                       <a href="#"><p>This ticket has one attachement. <span><i class="fas fa-image"></i></span></p></a> 
+                    <a href="{{ asset('/storage/screenshots/'.$ticket->img_name) }}" target="_blank" ><p>This ticket has one attachement. <span><i class="fas fa-image"></i></span></p></a> 
                     @else
                        <p>No image attached.</p> 
                     @endif
@@ -66,11 +70,18 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card card-primary card-outline">
-            <div class="card-header" style="background-color: #eeeeee">
-                Additional Infomation
+        <div class="card card-primary card-outline collapsed-card">
+            <div class="card-header">
+              <h3 class="card-title">Additional Information</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                </button>
+              </div>
+              <!-- /.card-tools -->
             </div>
-            <div class="card-body">
+            <!-- /.card-header -->
+            <div class="card-body" style="display: none;">
                 @if ($ticket->status == "NEW")
                     <div class="time-label pb-2">
                         Ticket Status : <span class="bg-yellow rounded p-2">{{ $ticket->status }}</span>
@@ -114,10 +125,10 @@
                         </div>
                     </div>
                 @else
-                    <p>This ticket will be assigned to a support engineer very soon.</p>
+                    <p style="color: gray">This ticket will be assigned to a support engineer very soon.</p>
                 @endif
-                
             </div>
+            <!-- /.card-body -->
         </div>
 
         <div class="card card-danger card-outline">

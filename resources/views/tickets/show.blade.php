@@ -15,28 +15,50 @@
         <div class="card card-info card-outline">
             <div class="card-header" style="background-color: #eeeeee">
                 Details of Ticket #{{ $ticket->id }}
+                <span class="float-right">
+                    @if ($ticket->status == "ASSIGNED")
+                        @if ($ticket->ticketAssignment->ticketPriority->priority_level == "ONE")
+                            <i class="fas fa-star"></i>
+                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "TWO")
+                            @for ($i = 0; $i < 2; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "THREE")
+                            @for ($i = 0; $i < 3; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "FOUR")
+                            @for ($i = 0; $i < 4; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                        @else
+                            {{-- <p class="" style="color: gray">Await rating</p>     --}}
+                        @endif
+                    @else
+                            
+                    @endif
+                </span>
             </div>
             <div class="card-body">
-                
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" name="title" value="{{ $ticket->title }}" disabled class="form-control">
+                    <input type="text" name="title" value="{{ $ticket->title }}" disabled class="form-control form-control-sm">
                 </div>
                 <div class="form-group">
                     <label for="body">Content</label>
-                    <textarea name="body" class="form-control" cols="30" rows="10" disabled>{{ $ticket->body }}</textarea>
+                    <textarea name="body" class="form-control form-control-sm" cols="30" rows="10" disabled>{{ $ticket->body }}</textarea>
                 </div>
 
                 <div>
                     @if (($ticket->img_name != null))
-                       <a href="#"><p>This ticket has one attachement. <span><i class="fas fa-image"></i></span></p></a> 
+                       <a href="{{ asset('/storage/screenshots/'.$ticket->img_name) }}" target="_blank" ><p>This ticket has one attachement. <span><i class="fas fa-image"></i></span></p></a> 
                     @else
                        <p>No image attached.</p> 
                     @endif
                 </div>
 
                 <div class="form-group">
-                    <div class="form-control">
+                    <div class="form-control form-control-sm">
                         <p>Author : <a href="{{ route('users.show', $ticket->createdBy->id) }}"><strong>{{ $ticket->createdBy->name }}</strong></a>  created this ticket on <strong>{{ $ticket->created_at }}</strong> <span class="time"><i class="fas fa-clock"></i></span> <span style="color: gray">{{ $ticket->created_at->diffForHumans() }}</span> </p>
                     </div>
                 </div>
@@ -65,11 +87,18 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card card-primary card-outline">
-            <div class="card-header" style="background-color: #eeeeee">
-                Additional Infomation
+        <div class="card card-primary card-outline collapsed-card">
+            <div class="card-header">
+              <h3 class="card-title">Additional Information</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                </button>
+              </div>
+              <!-- /.card-tools -->
             </div>
-            <div class="card-body">
+            <!-- /.card-header -->
+            <div class="card-body" style="display: none;">
                 @if ($ticket->status == "NEW")
                     <div class="time-label pb-2">
                         Ticket Status : <span class="bg-yellow rounded p-2">{{ $ticket->status }}</span>
@@ -91,17 +120,16 @@
                         Ticket Status : <span class="bg-gray rounded p-2">{{ $ticket->status }}</span>
                     </div>
                 @endif
-                
                 <hr>
                 @if ($ticket->status == 'ASSIGNED')
                     <div>
                         <div class="form-group">
-                            <label for="assigned_to">Assigned To</label>
+                            <label for="assigned_to">Assigned To : Support Engineer</label>
                             <input type="text" name="assigned_to" class="form-control form-control-sm" value="{{ $ticket->ticketAssignment->assignedTo->name }}" disabled>
                             <p style="color: gray">on {{ $ticket->ticketAssignment['created_at'] }} <span class="time"><i class="fas fa-clock"></i></span> <span style="color: gray">{{ $ticket->ticketAssignment['created_at']->diffForHumans() }}</span> </p>
                         </div>
                         <div class="form-group">
-                            <label for="assigned_by">Assigned By</label>
+                            <label for="assigned_by">Assigned By :</label>
                             <input type="text" name="assigned_by" class="form-control form-control-sm" value="{{ $ticket->ticketAssignment->assignedBy->name }}" disabled>
                         </div>
                         <div class="form-group">
@@ -109,15 +137,15 @@
                             <input type="text" name="ticketHeader" class="form-control form-control-sm" value="{{ $ticket->ticketAssignment->ticketHeader->hTitle }}" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="assigned_by">Assigned By</label>
-                            <input type="text" name="assigned_by" class="form-control form-control-sm" value="{{ $ticket->ticketAssignment->assignedBy->name }}" disabled>
+                            <label for="Severity">Severity Level</label>
+                            <input type="text" name="Severity" class="form-control form-control-sm" value="{{ $ticket->ticketAssignment->ticketPriority->priority_level }}" disabled>
                         </div>
                     </div>
                 @else
-                    <p>This ticket will be assigned to a support engineer very soon.</p>
+                    <p style="color: gray">This ticket will be assigned to a support engineer very soon.</p>
                 @endif
-                
             </div>
+            <!-- /.card-body -->
         </div>
     </div>
 @endsection

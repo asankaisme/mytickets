@@ -23,7 +23,9 @@
               <td>Title</td>
               <td>Author</td>
               <td>Created On</td>
+              <td>Assigned By</td>
               <td>Status</td>
+              <td>Assigned To</td>
               <td></td>
             </tr>
           </thead>
@@ -35,7 +37,17 @@
                   <td>{{ $ticketAssignment->title }}</td>
                   <td>{{ $ticketAssignment->createdBy->name}}</td>
                   <td>{{ $ticketAssignment->created_at->diffForHumans() }}</td>
+                  <td>
+                    @if ($ticketAssignment->status == "ASSIGNED")
+                        {{ $ticketAssignment->ticketAssignment->assignedBy->name }}
+                    @endif
+                  </td>
                   <td>{{ $ticketAssignment->status }}</td>
+                  <td>
+                    @if ($ticketAssignment->status == "ASSIGNED")
+                        {{ $ticketAssignment->ticketAssignment->assignedTo->name }}
+                    @endif
+                  </td>
                   <td>
                     <div class="btn-group btn-group-sm">
                       <a href="{{ route('ticketAssignments.show', $ticketAssignment->id) }}" class="btn btn-xs btn-primary" title="View"><i class="fas fa-eye"></i></a>

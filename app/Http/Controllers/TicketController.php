@@ -39,7 +39,9 @@ class TicketController extends Controller
         $newTicket->body = $request->body;
 
         if($request->hasFile('img_name')){
-            $newTicket->img_name = $request->img_name->getClientOriginalName();
+            $fileName = $request->img_name->getClientOriginalName();
+            $request->img_name->storeAs('screenshots', $fileName, 'public');
+            $newTicket->img_name = $fileName;
         }
 
         $newTicket->created_by = auth()->user()->id;
