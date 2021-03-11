@@ -26,6 +26,7 @@
               <td>Assigned By</td>
               <td>Status</td>
               <td>Assigned To</td>
+              <td>Attachment</td>
               <td></td>
             </tr>
           </thead>
@@ -46,6 +47,13 @@
                   <td>
                     @if ($ticketAssignment->status == "ASSIGNED")
                         {{ $ticketAssignment->ticketAssignment->assignedTo->name }}
+                    @endif
+                  </td>
+                  <td>
+                    @if ($ticketAssignment->img_name != null)
+                        <span><i class="fas fa-paperclip"></i></span>
+                    @else
+                        -    
                     @endif
                   </td>
                   <td>

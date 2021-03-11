@@ -20,7 +20,7 @@ class Ticket extends Model
         'isActive'
     ];
 
-    protected static $logAttributes = ['title', 'body'];
+    protected static $logAttributes = ['title', 'body', 'img_name'];
     protected static $recordEvents = ['created', 'updated','deleted'];
     protected static $logName = 'Ticket';
     protected static $logOnlyDirty = true;

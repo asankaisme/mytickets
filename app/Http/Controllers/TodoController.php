@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\TicketAssignment;
 use App\Todo;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class TodoController extends Controller
 
     public function index()
     {
-        return view('ToDos.index');
+        $jobsToDo = auth()->user()->TicketsAssignedTo;
+        // dd($jobsToDo);
+        return view('ToDos.index', compact('jobsToDo'));
     }
 
     /**

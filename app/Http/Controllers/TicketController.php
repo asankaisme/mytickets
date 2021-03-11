@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TicketController extends Controller
 {
@@ -16,7 +17,7 @@ class TicketController extends Controller
 
     public function index()
     {
-        $tickets = auth()->user()->ticket;
+        $tickets = auth()->user()->ticket->where('isActive', 1);
         return view('tickets.index', compact('tickets'));
     }
 
@@ -75,6 +76,15 @@ class TicketController extends Controller
             'body' => 'required|max:1000'
         ]);
 
+        if($request->hasFile('img_name')){
+            $fileName = $request->img_name->getClientOriginalName();
+            if($ticket->img_name){
+                Storage::delete('/public/screenshots/'.$ticket->img_name);
+            }
+            $request->img_name->storeAs('screenshots', $fileName, 'public');
+            $ticket->img_name = $fileName;
+            $ticket->update();
+        }
         $ticket->update($data);
         session()->flash('message', 'Ticket details updated successfully.');
         return redirect()->route('tickets.index');
