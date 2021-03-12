@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\TicketAssignment;
 use App\Todo;
+use App\Ticket;
+use App\TicketAssignment;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -19,70 +20,36 @@ class TodoController extends Controller
         // dd($jobsToDo);
         return view('ToDos.index', compact('jobsToDo'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    
+    public function show($id)
     {
-        //
+        $ticketToDo = Ticket::findOrFail($id);
+        // dd($ticketToDo);
+        return view('ToDos.show', compact('ticketToDo'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Todo $todo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Todo $todo)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Todo $todo)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Todo $todo)
+    public function acceptTicket($id)
     {
-        //
+        $getTicket = Ticket::findOrFail($id);
+        $getTicket->status = "ACCEPTED";
+        $getTicket->update();
+        session()->flash('message', 'You accepted this ticket.');
+        return redirect()->route('Todos.index');
+    }
+    public function raiseToL2($id)
+    {
+        return $id.' OK';
     }
 }

@@ -32,6 +32,9 @@ Route::get('/detachTicket/{id}', 'TicketAssignmentController@detachTicket')->nam
 Route::get('/users/profile/{id}', 'UserController@showProfile')->middleware('auth')->name('showProfile');
 Route::post('/uploadUsrImage', 'UserController@uploadUserImage')->middleware('auth')->name('uploadUsrImage');
 
+Route::get('/acceptTicket/{id}', 'TodoController@acceptTicket')->middleware('auth')->name('acceptTicket');
+Route::get('/raiseToL2/{id}', 'TodoController@raiseToL2')->middleware('auth')->name('raiseToL2');
+
 Route::get('/knowledgeBase', function(){
     $dataset = Ticket::where('status', 'COMPLETED')->with('user');
     return view('knowledgebase.index', compact('dataset'));

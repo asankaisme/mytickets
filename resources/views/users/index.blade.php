@@ -54,7 +54,7 @@
                                     <td>{{ $user->isActive }}</td>
                                     <td>
                                       <div class="btn-group btn-group-sm">
-                                          <a href="{{ route('users.show', $user->id) }}" class="btn btn-xs btn-primary" title="View"><i class="fas fa-eye"></i></a>
+                                          <a href="{{ route('users.show', $user->id) }}" title="View"><i class="fas fa-eye"></i></a>
                                           {{-- <a href="{{ route('users.edit', $user->id) }}" class="btn btn-xs btn-info"><i class="fas fa-edit"></i></a> --}}
                                           {{-- <a href="#" class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></a> --}}
                                           {{-- <a href="#" class="btn btn-xs btn-success"><i class="fas fa-arrow-alt-circle-right"></i></a> --}}

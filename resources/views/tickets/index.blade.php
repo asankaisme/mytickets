@@ -53,7 +53,7 @@
                   <td>{{ $ticket->status }}</td>
                   <td>
                     <div class="btn-group btn-group-sm">
-                      <a href="{{ route('tickets.show', $ticket->id) }}" class="btn btn-xs btn-primary" title="View"><i class="fas fa-eye"></i></a>
+                      <a href="{{ route('tickets.show', $ticket->id) }}" title="View"><i class="fas fa-eye"></i></a>
                       {{-- <a href="{{ route('tickets.edit', $ticket->id) }}" class="btn btn-xs btn-info" title="Edit"><i class="fas fa-edit"></i></a> --}}
                       {{-- <a href="#" class="btn btn-xs btn-danger"><i class="fas fa-trash" title="Delete"></i></a> --}}
                     </div>
