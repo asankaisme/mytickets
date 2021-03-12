@@ -85,7 +85,7 @@
                   @endif
                 </td>
                 <td>{{ $jobToDo->assignedBy->name }}</td>
-                <td>{{ $jobToDo->created_at }} <</td>
+                <td>{{ $jobToDo->created_at }}</td>
                 <td>
                   {{ $jobToDo->ticket->status }} <span style="color: gray"><i class="fas fa-clock"></i> {{ $jobToDo->ticket->updated_at->diffForHumans() }}</span>
                 </td>
