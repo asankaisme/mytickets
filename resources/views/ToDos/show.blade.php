@@ -16,7 +16,7 @@
             <div class="card-header" style="background-color: #eeeeee">
                 Details of Ticket #{{ $ticketToDo->id }}
                 <span class="float-right" style="color: maroon">
-                    @if ($ticketToDo->status == "ASSIGNED" || $ticketToDo->status == "ACCEPTED")
+                    @if ($ticketToDo->status == "ASSIGNED" || $ticketToDo->status == "ACCEPTED" || $ticketToDo->status == "COMPLETED")
                         @if ($ticketToDo->ticketAssignment->ticketPriority->priority_level == "ONE")
                             <i class="fas fa-star"></i>
                         @elseif ($ticketToDo->ticketAssignment->ticketPriority->priority_level == "TWO")
@@ -100,7 +100,7 @@
                     </div>
                 @endif
                 <hr>
-                @if ($ticketToDo->status == 'ASSIGNED' || $ticketToDo->status == 'ACCEPTED')
+                @if ($ticketToDo->status == 'ASSIGNED' || $ticketToDo->status == 'ACCEPTED' || $ticketToDo->status == "COMPLETED")
                     <div>
                         <div class="form-group">
                             <label for="assigned_to">Assigned To : <span style="color: gray">Support Engineer</span></label>
@@ -125,38 +125,45 @@
                 @endif
             </div>
         </div>
-        <div class="card">
-            <div class="card-header" style="background-color: #e2f0a2">
-              Next Step
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    @if ($ticketToDo->status == "ASSIGNED")
-                        <p>What should I do with this ticket?</p>
-                        <a href="{{ route('acceptTicket', $ticketToDo->id) }}" class="btn btn-sm btn-success">Accept</a>
-                        <a href="{{ route('raiseToL2', $ticketToDo->id) }}" class="btn btn-sm btn-outline-danger">Return</a>
-                    @elseif ($ticketToDo->status == "ACCEPTED")
-                        <p>I can't handle this. I want to send this ticket to my supervisor.</p>
-                        <form action="#" method="post">
-                            <div class="form-group">
-                                {{-- <label for="email">Supervisor Email</label> --}}
-                                <input type="email" name="email" class="form-control form-control-sm" placeholder="Supervisors' email here!" >
-                                <input type="submit" value="Send" class="btn btn-sm btn-outline-danger my-1 float-right">
-                            </div>
-                        </form>
-                    @else
-                    
-                    @endif
+        @if ($ticketToDo->status != "COMPLETED")
+            <div class="card">
+                <div class="card-header" style="background-color: #e2f0a2">
+                Next Step
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        @if ($ticketToDo->status == "ASSIGNED")
+                            <p>What should I do with this ticket?</p>
+                            <a href="{{ route('acceptTicket', $ticketToDo->id) }}" class="btn btn-sm btn-success">Accept</a>
+                            <a href="{{ route('raiseToL2', $ticketToDo->id) }}" class="btn btn-sm btn-outline-danger">Return</a>
+                        @elseif ($ticketToDo->status == "ACCEPTED")
+                            <p>I can't handle this. I want to raise this ticket to level 2 (L2) engineer.</p>
+                            <form action="#" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    {{-- <label for="email">Supervisor Email</label> --}}
+                                    <input type="email" name="email" class="form-control form-control-sm" placeholder="Supervisors' email here!" >
+                                    <input type="submit" value="Send" class="btn btn-sm btn-outline-danger my-1 float-right">
+                                </div>
+                            </form>
+                        @else
+                        
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
+        
         @if ($ticketToDo->status == "ACCEPTED")
             <div class="card card-info">
                 <div class="card-header">
                     Lab Report
                 </div>
                 <div class="card-body">
-                    <form action="#" method="post">
+                    <form action="{{ route('ticketComments.store') }}" method="post">
+                        @csrf
+                        {{-- @method('PUT') --}}
+                        <input type="hidden" name="ticketId" value="{{ $ticketToDo->id }}">
                         <div class="form-group">
                             <textarea name="diagnosis" cols="30" rows="6" placeholder="Your diagnosis.." class="form-control form-control-sm"></textarea>
                         </div>
@@ -170,8 +177,33 @@
                     </form>
                 </div>
             </div>
-        @else
+        @endif
             
+        @if ($ticketToDo->status == "COMPLETED")
+        <div class="card card-info">
+            <div class="card-header">
+                Lab Report
+            </div>
+            <div class="card-body">
+                <form action="{{ route('ticketComments.store') }}" method="post">
+                    @csrf
+                    {{-- @method('PUT') --}}
+                    <input type="hidden" name="ticketId" value="{{ $ticketToDo->id }}">
+                    <div class="form-group">
+                        <label for="diagnosis">Diagnosis</label>
+                        <textarea name="diagnosis" cols="30" rows="6" class="form-control form-control-sm" disabled>{{ $ticketToDo->comments->diagnosis }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="Solution">Solution</label>
+                        <textarea name="solution" cols="30" rows="6" class="form-control form-control-sm" disabled>{{ $ticketToDo->comments->solution }}</textarea>
+                    </div>
+                    {{-- <div class="form-group">
+                        <input type="submit" value="Complete" class="btn btn-success btn-sm float-right mx-1">
+                        <input type="reset" value="Clear" class="btn btn-outline-dark btn-sm float-right">
+                    </div> --}}
+                </form>
+            </div>
+        </div>
         @endif
     </div>
 @endsection

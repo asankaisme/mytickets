@@ -121,7 +121,7 @@
                     </div>
                 @endif
                 <hr>
-                @if ($ticket->status == "ASSIGNED" || $ticket->status == "ACCEPTED")
+                @if ($ticket->status == "ASSIGNED" || $ticket->status == "ACCEPTED" || $ticket->status == "COMPLETED")
                     <div>
                         <div class="form-group">
                             <label for="assigned_to">Assigned To : <span style="color: gray;">Support Engineer</span></label>

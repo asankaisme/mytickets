@@ -2,40 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\Ticket;
 use App\TicketComment;
 use Illuminate\Http\Request;
 
 class TicketCommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function _construct()
+    {
+        return $this->middleware('auth');
+    }
+
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'ticketId' => 'required',
+            'diagnosis' => 'required|min:2|max:2000',
+            'solution' => 'required|min:2|max:2000',
+        ]);
+
+        $tc = new TicketComment();
+        $tc->ticket_id = $request->ticketId;
+        $tc->diagnosis = $request->diagnosis;
+        $tc->solution = $request->solution;
+        $tc->user_id = auth()->user()->id;
+        $tc->isActive = 1;
+        $tc->save();
+        $originalTicket = Ticket::findOrFail($request->ticketId);
+        $originalTicket->status = "COMPLETED";
+        $originalTicket->update();
+        session()->flash('message', 'This ticket is completed and closed.');
+        return redirect()->route('Todos.index');
     }
 
     /**

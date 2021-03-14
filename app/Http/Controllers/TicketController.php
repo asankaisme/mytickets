@@ -103,10 +103,4 @@ class TicketController extends Controller
         session()->flash('message', 'Ticket deleted successfully.');
         return redirect()->route('tickets.index');
     }
-
-    public function getbackup()
-    {
-        Artisan::call('backup:run');
-        return 'done';
-    }
 }

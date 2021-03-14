@@ -15,8 +15,8 @@
         <div class="card card-info card-outline">
             <div class="card-header" style="background-color: #eeeeee">
                 Details of Ticket #{{ $ticket->id }}
-                <span class="float-right">
-                    @if ($ticket->status == "ASSIGNED")
+                <span class="float-right" style="color: maroon">
+                    @if ($ticket->status == "ASSIGNED" || $ticket->status == "ACCEPTED" || $ticket->status == "COMPLETED")
                         @if ($ticket->ticketAssignment->ticketPriority->priority_level == "ONE")
                             <i class="fas fa-star"></i>
                         @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "TWO")
@@ -104,7 +104,7 @@
                     </div>
                 @endif
                 <hr>
-                @if ($ticket->status == 'ASSIGNED' || $ticket->status == 'ACCEPTED')
+                @if ($ticket->status == 'ASSIGNED' || $ticket->status == 'ACCEPTED' || $ticket->status == "COMPLETED")
                     <div>
                         <div class="form-group">
                             <label for="assigned_to">Assigned To : Support Engineer</label>
@@ -131,12 +131,59 @@
             <!-- /.card-body -->
         </div>
 
+        @if ($ticket->status != "COMPLETED" || $ticket->status != "ASSIGNED" || $ticket->status != "ACCEPTED")
+
+        @else
+            <div class="card card-danger card-outline">
+                <div class="card-header" style="background-color: #e9e3aa">
+                    Assign This Ticket
+                </div>
+                <div class="card-body">
+                        <form action="{{ route('ticketAssignments.store') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="ticketId" value="{{ $ticket->id }}">
+                            <div class="form-group">
+                                <label for="selectSupEng">Select Support Engineer</label>
+                                <select name="selectSupEng" class="form-control form-control-sm">
+                                    <option value="null">Select Support Engineer</option>
+                                    @foreach ($supEngs as $supEng)
+                                        <option value="{{ $supEng->id }}">{{ $supEng->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="selectHeader">Select Ticket Header</label>
+                                <select name="selectHeader" class="form-control form-control-sm">
+                                    <option value="null">Select Header</option>
+                                    @foreach ($headers as $header)
+                                        <option value="{{ $header->id }}">{{ $header->hTitle }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="selectPriority">Select Severity Level</label>
+                                <select name="selectPriority" class="form-control form-control-sm">
+                                    <option value="null">Select Severity Level</option>
+                                    @foreach ($priorityLevels as $priorityLevel)
+                                        <option value="{{ $priorityLevel->id }}">{{ $priorityLevel->priority_level }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Assign" class="btn btn-primary btn-sm float-right">
+                                <input type="reset" value="Clear" class="btn btn-outline-dark btn-sm float-right mx-1">
+                            </div>
+                        </form>
+                </div>
+            </div>
+        @endif
+
+        @if ($ticket->status == "NEW" || $ticket->status == "DETACHED")
         <div class="card card-danger card-outline">
             <div class="card-header" style="background-color: #e9e3aa">
                 Assign This Ticket
             </div>
             <div class="card-body">
-                @if ($ticket->status != "ASSIGNED")
                     <form action="{{ route('ticketAssignments.store') }}" method="post">
                         @csrf
                         <input type="hidden" name="ticketId" value="{{ $ticket->id }}">
@@ -172,14 +219,50 @@
                             <input type="reset" value="Clear" class="btn btn-outline-dark btn-sm float-right mx-1">
                         </div>
                     </form>
-                @else
-                    <p>Un-assigned this ticket from : {{ $ticket->ticketAssignment->assignedTo->name }}</p>
+            </div>
+        </div>
+        @endif
+
+        @if ($ticket->status == "ASSIGNED")
+        <div class="card card-danger card-outline">
+            <div class="card-header" style="background-color: #e9e3aa">
+                Assign This Ticket
+            </div>
+            <div class="card-body">
+                <p>Un-assigned this ticket from : {{ $ticket->ticketAssignment->assignedTo->name }}</p>
                     <div class="form-group">
                         <a href="{{ route('detachTicket', $ticket->ticketAssignment->id) }}" class="btn btn-danger btn-sm">Detach</a>
                     </div>
+            </div>
+        @endif
+
+            
+                @if ($ticket->status == "COMPLETED")
+                <div class="card card-info">
+                    <div class="card-header">
+                        Lab Report
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('ticketComments.store') }}" method="post">
+                            @csrf
+                            {{-- @method('PUT') --}}
+                            <input type="hidden" name="ticketId" value="{{ $ticket->id }}">
+                            <div class="form-group">
+                                <label for="diagnosis">Diagnosis</label>
+                                <textarea name="diagnosis" cols="30" rows="6" class="form-control form-control-sm" disabled>{{ $ticket->comments->diagnosis }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="Solution">Solution</label>
+                                <textarea name="solution" cols="30" rows="6" class="form-control form-control-sm" disabled>{{ $ticket->comments->solution }}</textarea>
+                            </div>
+                            {{-- <div class="form-group">
+                                <input type="submit" value="Complete" class="btn btn-success btn-sm float-right mx-1">
+                                <input type="reset" value="Clear" class="btn btn-outline-dark btn-sm float-right">
+                            </div> --}}
+                        </form>
+                    </div>
+                </div>
                 @endif
                 
-            </div>
-        </div>
     </div>
 @endsection

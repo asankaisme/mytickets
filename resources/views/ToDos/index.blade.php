@@ -48,7 +48,7 @@
                 <td>{{ $jobToDo->ticket->title }}</td>
                 <td>
                   <span class="float-left" style="color: gray">
-                    @if ($jobToDo->ticket->status == "ASSIGNED" || $jobToDo->ticket->status == "ACCEPTED")
+                    @if ($jobToDo->ticket->status == "ASSIGNED" || $jobToDo->ticket->status == "ACCEPTED" || $jobToDo->ticket->status == "COMPLETED")
                         @if ($jobToDo->ticketPriority->priority_level == "ONE")
                             <i class="fas fa-star"></i>
                         @elseif ($jobToDo->ticketPriority->priority_level == "TWO")

@@ -39,13 +39,13 @@
                   <td>{{ $ticketAssignment->createdBy->name}}</td>
                   <td>{{ $ticketAssignment->created_at->diffForHumans() }}</td>
                   <td>
-                    @if ($ticketAssignment->status == "ASSIGNED" || $ticketAssignment->status == "ACCEPTED")
+                    @if ($ticketAssignment->status == "ASSIGNED" || $ticketAssignment->status == "ACCEPTED" || $ticketAssignment->status == "COMPLETED")
                         {{ $ticketAssignment->ticketAssignment->assignedBy->name }}
                     @endif
                   </td>
                   <td>{{ $ticketAssignment->status }}</td>
                   <td>
-                    @if ($ticketAssignment->status == "ASSIGNED" || $ticketAssignment->status == "ACCEPTED")
+                    @if ($ticketAssignment->status == "ASSIGNED" || $ticketAssignment->status == "ACCEPTED" || $ticketAssignment->status == "COMPLETED")
                         {{ $ticketAssignment->ticketAssignment->assignedTo->name }}
                     @endif
                   </td>
