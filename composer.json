@@ -17,6 +17,7 @@
         "laravel/ui": "^2.0",
         "livewire/livewire": "^2.3",
         "spatie/laravel-activitylog": "^3.17",
+        "spatie/laravel-backup": "^6.15",
         "spatie/laravel-permission": "^4.0"
     },
     "require-dev": {

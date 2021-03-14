@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Ticket;
+use App\TicketComment;
 use App\TicketAssignment;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -62,5 +63,10 @@ class User extends Authenticatable
     public function TicketsAssignedTo()
     {
         return $this->hasMany(TicketAssignment::class, 'assigned_to');
+    }
+
+    public function comments()
+    {
+        return $this->hasOne(TicketComment::class);
     }
 }

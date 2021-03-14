@@ -3,6 +3,7 @@
 namespace App;
 
 use App\User;
+use App\TicketComment;
 use App\TicketAssignment;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -33,5 +34,10 @@ class Ticket extends Model
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function comments()
+    {
+        return $this->hasOne(TicketComment::class);
     }
 }

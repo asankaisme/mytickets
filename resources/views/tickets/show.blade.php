@@ -121,10 +121,10 @@
                     </div>
                 @endif
                 <hr>
-                @if ($ticket->status == 'ASSIGNED')
+                @if ($ticket->status == "ASSIGNED" || $ticket->status == "ACCEPTED")
                     <div>
                         <div class="form-group">
-                            <label for="assigned_to">Assigned To : Support Engineer</label>
+                            <label for="assigned_to">Assigned To : <span style="color: gray;">Support Engineer</span></label>
                             <input type="text" name="assigned_to" class="form-control form-control-sm" value="{{ $ticket->ticketAssignment->assignedTo->name }}" disabled>
                             <p style="color: gray">on {{ $ticket->ticketAssignment['created_at'] }} <span class="time"><i class="fas fa-clock"></i></span> <span style="color: gray">{{ $ticket->ticketAssignment['created_at']->diffForHumans() }}</span> </p>
                         </div>
@@ -147,5 +147,24 @@
             </div>
             <!-- /.card-body -->
         </div>
+        @if ($ticket->status == "COMPLETED")
+            <div class="card card-info">
+                <div class="card-header">
+                    Lap Report on ticket #{{ $ticket->id }}
+                </div>
+                <div class="card-body">
+                    <div class="callout callout-danger">
+                        <h5>Diagnosis</h5>
+                        <p>***</p>
+                    </div>
+                    <div class="callout callout-success">
+                        <h5>Solution</h5>
+                        <p>***</p>
+                    </div>
+                </div>
+            </div>
+        @else
+            
+        @endif
     </div>
 @endsection

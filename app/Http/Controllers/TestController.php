@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Spatie\Permission\Models\Role;
 
 class TestController extends Controller
 {
@@ -13,7 +15,12 @@ class TestController extends Controller
 
     public function index()
     {
-        Role::create(['name' => 'client']);
-        return view('home');
+        return 'test ok';
+    }
+
+    public function getbackup()
+    {
+        Artisan::call('backup:run');
+        return 'done';
     }
 }

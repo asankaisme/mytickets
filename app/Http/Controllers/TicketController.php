@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
 class TicketController extends Controller
@@ -101,5 +102,11 @@ class TicketController extends Controller
         $ticket->update();
         session()->flash('message', 'Ticket deleted successfully.');
         return redirect()->route('tickets.index');
+    }
+
+    public function getbackup()
+    {
+        Artisan::call('backup:run');
+        return 'done';
     }
 }
