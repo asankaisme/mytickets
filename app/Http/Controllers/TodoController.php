@@ -46,7 +46,7 @@ class TodoController extends Controller
         $getTicket->status = "ACCEPTED";
         $getTicket->update();
         session()->flash('message', 'You accepted this ticket.');
-        return redirect()->route('Todos.index');
+        return redirect()->route('Todos.show', $id);
     }
     public function raiseToL2($id)
     {

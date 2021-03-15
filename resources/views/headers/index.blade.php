@@ -67,11 +67,11 @@
                     @csrf
                     <div class="form-group">
                         <label for="hTitle">Header Title</label>
-                        <input type="text" name="hTitle" class="form-control">
+                        <input type="text" name="hTitle" class="form-control form-control-sm">
                     </div>
                     <div class="form-group">
                         <label for="hDescription">Description</label>
-                        <textarea name="hDescription" cols="30" rows="10" class="form-control"></textarea>
+                        <textarea name="hDescription" cols="30" rows="10" class="form-control form-control-sm"></textarea>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Add Header" class="btn btn-primary btn-sm float-right mx-2">

@@ -21,11 +21,11 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="hTitle">Header Title</label>
-                        <input type="text" name="hTitle" class="form-control" value="{{ $priority->priority_level }}">
+                        <input type="text" name="hTitle" class="form-control form-control-sm" value="{{ $priority->priority_level }}">
                     </div>
                     <div class="form-group">
                         <label for="hDescription">Header Title</label>
-                        <textarea name="hDescription" cols="30" rows="10" class="form-control">{{ $priority->priority_Description }}</textarea>
+                        <textarea name="hDescription" cols="30" rows="10" class="form-control form-control-sm">{{ $priority->priority_Description }}</textarea>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Update" class="btn btn-primary btn-sm float-right mx-2">

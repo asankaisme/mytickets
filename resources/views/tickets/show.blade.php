@@ -153,14 +153,23 @@
                     Lap Report on ticket #{{ $ticket->id }}
                 </div>
                 <div class="card-body">
-                    <div class="callout callout-danger">
-                        <h5>Diagnosis</h5>
-                        <p>***</p>
-                    </div>
-                    <div class="callout callout-success">
-                        <h5>Solution</h5>
-                        <p>***</p>
-                    </div>
+                    <form action="{{ route('ticketComments.store') }}" method="post">
+                        @csrf
+                        {{-- @method('PUT') --}}
+                        <input type="hidden" name="ticketId" value="{{ $ticket->id }}">
+                        <div class="form-group">
+                            <label for="diagnosis">Diagnosis</label>
+                            <textarea name="diagnosis" cols="30" rows="6" class="form-control form-control-sm" disabled>{{ $ticket->comments->diagnosis }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Solution">Solution</label>
+                            <textarea name="solution" cols="30" rows="6" class="form-control form-control-sm" disabled>{{ $ticket->comments->solution }}</textarea>
+                        </div>
+                        {{-- <div class="form-group">
+                            <input type="submit" value="Complete" class="btn btn-success btn-sm float-right mx-1">
+                            <input type="reset" value="Clear" class="btn btn-outline-dark btn-sm float-right">
+                        </div> --}}
+                    </form>
                 </div>
             </div>
         @else

@@ -66,11 +66,11 @@
                     @csrf
                     <div class="form-group">
                         <label for="priority_level">Priority Level</label>
-                        <input type="text" name="priority_level" class="form-control">
+                        <input type="text" name="priority_level" class="form-control form-control-sm">
                     </div>
                     <div class="form-group">
                         <label for="priority_description">Description</label>
-                        <textarea name="priority_description" cols="30" rows="10" class="form-control"></textarea>
+                        <textarea name="priority_description" cols="30" rows="10" class="form-control form-control-sm"></textarea>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Add Record" class="btn btn-primary btn-sm float-right mx-2">
