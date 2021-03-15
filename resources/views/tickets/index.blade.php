@@ -38,6 +38,8 @@
               <td>Title</td>
               <td>Author</td>
               <td>Created On</td>
+              <td></td>
+              <td>Assigned To</td>
               <td>Status</td>
               <td></td>
             </tr>
@@ -49,7 +51,19 @@
                   <td>{{ $ticket->id }}</td>
                   <td>{{ $ticket->title }}</td>
                   <td>{{ $ticket->createdBy->name}}</td>
-                  <td>{{ $ticket->created_at->diffForHumans() }}</td>
+                  <td>{{ $ticket->created_at }} <span style="color: gray"> <i class="fas fa-clock"></i> {{ $ticket->created_at->diffForHumans() }}</span></td>
+                  <td>
+                    @if ($ticket->img_name)
+                        <span><i class="fas fa-paperclip"></i></span>
+                    @else
+                        -
+                    @endif
+                  </td>
+                  <td>
+                    @if ($ticket->status == "ASSIGNED" || $ticket->status == "ACCEPTED" || $ticket->status == "COMPLETED")
+                        {{ $ticket->ticketAssignment->assignedTo->name }}
+                    @endif
+                  </td>
                   <td>{{ $ticket->status }}</td>
                   <td>
                     <div class="btn-group btn-group-sm">

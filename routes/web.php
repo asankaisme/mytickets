@@ -1,7 +1,9 @@
 <?php
 
 use App\Ticket;
+use App\Mail\SendLevelTwoEmail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -46,3 +48,8 @@ Route::get('/activityLog', function(){
     $activities = Activity::all();
     return view('activitylogs.index', compact('activities'));
 })->middleware('auth')->name('activityLog');
+
+Route::get('/sendEmail', function(){
+    Mail::to('email@email.com')->send(new SendLevelTwoEmail);
+    // return new SendLevelTwoEmail();
+});
