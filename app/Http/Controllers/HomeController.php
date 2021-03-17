@@ -9,11 +9,6 @@ use Spatie\Permission\Models\Permission;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,6 +16,11 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('home');
+        $allTickets = auth()->user()->ticket()->count();
+        $allCompletedTickets = auth()->user()->ticket()->where('status', 'COMPLETED')->count();
+        $allAssignedTickets = auth()->user()->ticket()->where('status', 'ASSIGNED')->count();
+        $allNewTickets = auth()->user()->ticket()->where('status', 'NEW')->count();
+        // dd($allCompletedTickets);
+        return view('home', compact('allTickets', 'allCompletedTickets', 'allAssignedTickets', 'allNewTickets'));
     }
 }

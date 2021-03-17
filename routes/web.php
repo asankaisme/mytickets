@@ -39,8 +39,9 @@ Route::get('/acceptTicket/{id}', 'TodoController@acceptTicket')->middleware('aut
 Route::get('/raiseToL2/{id}', 'TodoController@raiseToL2')->middleware('auth')->name('raiseToL2');
 
 Route::get('/knowledgeBase', function(){
-    $dataset = Ticket::where('status', 'COMPLETED')->with('user');
-    return view('knowledgebase.index', compact('dataset'));
+    $datasets = Ticket::where('status', 'COMPLETED')->get();
+    // dd($datasets);
+    return view('knowledgebase.index', compact('datasets'));
 })->name('knowledgebase');
 
 //this route will logs all activities

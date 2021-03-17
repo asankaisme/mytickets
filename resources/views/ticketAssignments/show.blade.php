@@ -17,17 +17,17 @@
                 Details of Ticket #{{ $ticket->id }}
                 <span class="float-right" style="color: maroon">
                     @if ($ticket->status == "ASSIGNED" || $ticket->status == "ACCEPTED" || $ticket->status == "COMPLETED")
-                        @if ($ticket->ticketAssignment->ticketPriority->priority_level == "ONE")
+                        @if ($ticket->ticketAssignment->ticketPriority->priority_level == "NOTICE")
                             <i class="fas fa-star"></i>
-                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "TWO")
+                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "MINOR")
                             @for ($i = 0; $i < 2; $i++)
                                 <i class="fas fa-star"></i>
                             @endfor
-                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "THREE")
+                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "MAJOR")
                             @for ($i = 0; $i < 3; $i++)
                                 <i class="fas fa-star"></i>
                             @endfor
-                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "FOUR")
+                        @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "CRITICAL")
                             @for ($i = 0; $i < 4; $i++)
                                 <i class="fas fa-star"></i>
                             @endfor

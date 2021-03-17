@@ -21,7 +21,7 @@
     @can('add ticket')
       <div class="row">
         <div class="mx-2 my-2 flex">
-          <a href="{{ route('tickets.create') }}" class="btn btn-info rounded shadow text-white float-right">Add Tickets</a>
+          <a href="{{ route('tickets.create') }}" class="btn btn-primary rounded shadow float-right">Add Tickets</a>
         </div>
       </div>
     @endcan
@@ -39,6 +39,7 @@
               <td>Author</td>
               <td>Created On</td>
               <td></td>
+              <td></td>
               <td>Assigned To</td>
               <td>Status</td>
               <td></td>
@@ -52,6 +53,31 @@
                   <td>{{ $ticket->title }}</td>
                   <td>{{ $ticket->createdBy->name}}</td>
                   <td>{{ $ticket->created_at }} <span style="color: gray"> <i class="fas fa-clock"></i> {{ $ticket->created_at->diffForHumans() }}</span></td>
+                  <td>
+                    <span style="color: gray">
+                      @if ($ticket->status == "ASSIGNED" || $ticket->status == "ACCEPTED" || $ticket->status == "COMPLETED")
+                      @if ($ticket->ticketAssignment->ticketPriority->priority_level == "NOTICE")
+                          <i class="fas fa-star"></i>
+                      @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "MINOR")
+                          @for ($i = 0; $i < 2; $i++)
+                              <i class="fas fa-star"></i>
+                          @endfor
+                      @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "MAJOR")
+                          @for ($i = 0; $i < 3; $i++)
+                              <i class="fas fa-star"></i>
+                          @endfor
+                      @elseif ($ticket->ticketAssignment->ticketPriority->priority_level == "CRITICAL")
+                          @for ($i = 0; $i < 4; $i++)
+                              <i class="fas fa-star"></i>
+                          @endfor
+                      @else
+                          {{-- <p class="" style="color: gray">Await rating</p>     --}}
+                      @endif
+                  @else
+                          
+                  @endif
+                    </span>
+                  </td>
                   <td>
                     @if ($ticket->img_name)
                         <span><i class="fas fa-paperclip"></i></span>

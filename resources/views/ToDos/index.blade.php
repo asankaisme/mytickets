@@ -49,17 +49,17 @@
                 <td>
                   <span class="float-left" style="color: gray">
                     @if ($jobToDo->ticket->status == "ASSIGNED" || $jobToDo->ticket->status == "ACCEPTED" || $jobToDo->ticket->status == "COMPLETED")
-                        @if ($jobToDo->ticketPriority->priority_level == "ONE")
+                        @if ($jobToDo->ticketPriority->priority_level == "NOTICE")
                             <i class="fas fa-star"></i>
-                        @elseif ($jobToDo->ticketPriority->priority_level == "TWO")
+                        @elseif ($jobToDo->ticketPriority->priority_level == "MINOR")
                             @for ($i = 0; $i < 2; $i++)
                                 <i class="fas fa-star"></i>
                             @endfor
-                        @elseif ($jobToDo->ticketPriority->priority_level == "THREE")
+                        @elseif ($jobToDo->ticketPriority->priority_level == "MAJOR")
                             @for ($i = 0; $i < 3; $i++)
                                 <i class="fas fa-star"></i>
                             @endfor
-                        @elseif ($jobToDo->ticketPriority->priority_level == "FOUR")
+                        @elseif ($jobToDo->ticketPriority->priority_level == "CRITICAL")
                             @for ($i = 0; $i < 4; $i++)
                                 <i class="fas fa-star"></i>
                             @endfor

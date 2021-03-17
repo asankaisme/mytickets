@@ -26,7 +26,8 @@
               <td>Assigned By</td>
               <td>Status</td>
               <td>Assigned To</td>
-              <td>Attachment</td>
+              <td></td>
+              <td></td>
               <td></td>
             </tr>
           </thead>
@@ -37,7 +38,7 @@
                   <td>{{ $ticketAssignment->id }}</td>
                   <td>{{ $ticketAssignment->title }}</td>
                   <td>{{ $ticketAssignment->createdBy->name}}</td>
-                  <td>{{ $ticketAssignment->created_at->diffForHumans() }}</td>
+                  <td>{{ $ticketAssignment->created_at }} <span> <i class="fas fa-clock" style="color: gray"></i> {{ $ticketAssignment->created_at->diffForHumans() }}</span></td>
                   <td>
                     @if ($ticketAssignment->status == "ASSIGNED" || $ticketAssignment->status == "ACCEPTED" || $ticketAssignment->status == "COMPLETED")
                         {{ $ticketAssignment->ticketAssignment->assignedBy->name }}
@@ -48,6 +49,31 @@
                     @if ($ticketAssignment->status == "ASSIGNED" || $ticketAssignment->status == "ACCEPTED" || $ticketAssignment->status == "COMPLETED")
                         {{ $ticketAssignment->ticketAssignment->assignedTo->name }}
                     @endif
+                  </td>
+                  <td>
+                    <span style="color: gray">
+                      @if ($ticketAssignment->status == "ASSIGNED" || $ticketAssignment->status == "ACCEPTED" || $ticketAssignment->status == "COMPLETED")
+                        @if ($ticketAssignment->ticketAssignment->ticketPriority->priority_level == "NOTICE")
+                            <i class="fas fa-star"></i>
+                        @elseif ($ticketAssignment->ticketAssignment->ticketPriority->priority_level == "MINOR")
+                            @for ($i = 0; $i < 2; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                        @elseif ($ticketAssignment->ticketAssignment->ticketPriority->priority_level == "MAJOR")
+                            @for ($i = 0; $i < 3; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                        @elseif ($ticketAssignment->ticketAssignment->ticketPriority->priority_level == "CRITICAL")
+                            @for ($i = 0; $i < 4; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                        @else
+                            {{-- <p class="" style="color: gray">Await rating</p>     --}}
+                        @endif
+                    @else
+                            
+                    @endif
+                    </span>
                   </td>
                   <td>
                     @if ($ticketAssignment->img_name != null)

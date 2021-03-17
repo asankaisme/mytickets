@@ -40,8 +40,8 @@
             </tr>
           </thead>
           <tbody>
-            @if ($dataset->count() > 0)
-              @foreach ($dataset as $dataset)
+            @if ($datasets->count() > 0)
+              @foreach ($datasets as $dataset)
                 <tr>
                   <td>{{ $dataset->id }}</td>
                   <td>{{ $dataset->title }}</td><td>{{ $dataset->body }}</td><td>{{ $dataset->body }}</td>
