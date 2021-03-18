@@ -44,6 +44,8 @@ class TodoController extends Controller
     {
         $getTicket = Ticket::findOrFail($id);
         $getTicket->status = "ACCEPTED";
+        $getTicket->ticketAssignment->status = "ACCEPTED";
+        $getTicket->ticketAssignment->update();
         $getTicket->update();
         session()->flash('message', 'You accepted this ticket.');
         return redirect()->route('Todos.show', $id);

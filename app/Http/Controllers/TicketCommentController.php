@@ -41,6 +41,8 @@ class TicketCommentController extends Controller
         $originalTicket = Ticket::findOrFail($request->ticketId);
         $originalTicket->status = "COMPLETED";
         $originalTicket->update();
+        $originalTicket->ticketAssignment->status = 'COMPLETED';
+        $originalTicket->ticketAssignment->update();
         session()->flash('message', 'This ticket is completed and closed.');
         return redirect()->route('Todos.index');
     }

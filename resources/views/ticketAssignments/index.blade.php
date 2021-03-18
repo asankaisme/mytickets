@@ -38,7 +38,7 @@
                   <td>{{ $ticketAssignment->id }}</td>
                   <td>{{ $ticketAssignment->title }}</td>
                   <td>{{ $ticketAssignment->createdBy->name}}</td>
-                  <td>{{ $ticketAssignment->created_at }} <span> <i class="fas fa-clock" style="color: gray"></i> {{ $ticketAssignment->created_at->diffForHumans() }}</span></td>
+                  <td>{{ $ticketAssignment->updated_at }} <span> <i class="fas fa-clock" style="color: gray"></i> {{ $ticketAssignment->updated_at->diffForHumans() }}</span></td>
                   <td>
                     @if ($ticketAssignment->status == "ASSIGNED" || $ticketAssignment->status == "ACCEPTED" || $ticketAssignment->status == "COMPLETED")
                         {{ $ticketAssignment->ticketAssignment->assignedBy->name }}
