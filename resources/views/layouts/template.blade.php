@@ -29,13 +29,14 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
-
+    
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
+        
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-user"></i>
+          <span>{{ Auth::user()->roles->pluck('name')->implode('') }}</span> | <i class="far fa-user"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <div class="dropdown-divider"></div>
@@ -78,15 +79,17 @@
         </div>
         <div class="info">
           <a href="{{ route('showProfile', Auth::user()->id) }}" class="d-block">{{ Auth::user()->name }}</a>
+          <span style="color: gray">{{ Auth::user()->roles->pluck('name')->implode('') }}</span>
         </div>
       </div>
+      
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
             <a href="{{ route('home') }}" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
@@ -95,7 +98,7 @@
           @can('add ticket')
             <li class="nav-item">
               <a href="{{ route('tickets.index') }}" class="nav-link">
-                <i class="nav-icon far fa-image"></i>
+                <i class="nav-icon fas fa-list"></i>
                 <p>
                   Ticket Management
                 </p>
@@ -106,7 +109,7 @@
           @can('assign ticket')
             <li class="nav-item">
               <a href="{{ route('ticketAssignments.index') }}" class="nav-link">
-                <i class="nav-icon far fa-image"></i>
+                <i class="nav-icon fas fa-list-alt"></i>
                 <p>
                   Ticket Assignments
                 </p>
@@ -117,7 +120,7 @@
           @can('accept ticket')
             <li class="nav-item">
               <a href="{{ route('Todos.index') }}" class="nav-link">
-                <i class="nav-icon far fa-image"></i>
+                <i class="nav-icon fas fa-list-ol"></i>
                 <p>
                   To-Do List
                 </p>
@@ -129,7 +132,7 @@
             <li class="nav-header">Master Data</li>
             <li class="nav-item">
               <a href="{{ route('headers.index') }}" class="nav-link">
-                <i class="nav-icon far fa-user"></i>
+                <i class="nav-icon fas fa-align-justify"></i>
                 <p>
                   Manage Headers
                 </p>
@@ -140,7 +143,7 @@
           @can('manage priorities')
             <li class="nav-item">
               <a href="{{ route('priorities.index') }}" class="nav-link">
-                <i class="nav-icon far fa-user"></i>
+                <i class="nav-icon fas fa-layer-group"></i>
                 <p>
                   Manage Priority Levels
                 </p>
@@ -152,7 +155,7 @@
             <li class="nav-header">Admin Functions</li>
             <li class="nav-item">
               <a href="{{ route('users.index') }}" class="nav-link">
-                <i class="nav-icon far fa-user"></i>
+                <i class="nav-icon fas fa-user-lock"></i>
                 <p>
                   Manage Users
                 </p>
@@ -163,9 +166,21 @@
           @can('view sysLog')
             <li class="nav-item">
               <a href="{{ route('activityLog') }}" class="nav-link">
-                <i class="nav-icon far fa-user"></i>
+                <i class="nav-icon fas fa-clipboard-list"></i>
                 <p>
                   System Logs
+                </p>
+              </a>
+            </li>
+          @endcan
+
+          @can('print reports')
+          <li class="nav-header">Print Functions</li>
+            <li class="nav-item">
+              <a href="{{ route('laodView') }}" class="nav-link">
+                <i class="nav-icon fas fa-print"></i>
+                <p>
+                  Print Reports
                 </p>
               </a>
             </li>
@@ -174,7 +189,7 @@
           <li class="nav-header">Knowledge Base</li>
           <li class="nav-item">
             <a href="{{ route('knowledgebase') }}" class="nav-link">
-              <i class="nav-icon far fa-user"></i>
+              <i class="nav-icon fas fa-database"></i>
               <p>
                 Search Archives
               </p>

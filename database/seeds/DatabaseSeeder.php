@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
  
         $this->call(RolesSeeder::class);
+        $this->call(TicketProritySeeder::class);
+        $this->call(TicketSeeder::class);
+        $this->call(TicketHeaderSeeder::class);
  
         // Re enable all mass assignment restrictions
         Model::reguard();

@@ -25,7 +25,7 @@
             </div>
             <!-- /.widget-user-image -->
             <h3 class="widget-user-username">{{ Auth::user()->name }}</h3>
-            <h5 class="widget-user-desc">{{ Auth::user()->roles->pluck('name') }}</h5>
+            <h5 class="widget-user-desc">{{ Auth::user()->roles->pluck('name')->implode('') }} user</h5>
         </div>
         <div class="card-footer p-0">
             <ul class="nav flex-column">

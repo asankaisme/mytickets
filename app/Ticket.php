@@ -3,6 +3,7 @@
 namespace App;
 
 use App\User;
+use App\Feedback;
 use App\TicketComment;
 use App\TicketAssignment;
 use Illuminate\Database\Eloquent\Model;
@@ -39,5 +40,10 @@ class Ticket extends Model
     public function comments()
     {
         return $this->hasOne(TicketComment::class);
+    }
+
+    public function feedback()
+    {
+        return $this->hasOne(Feedback::class);
     }
 }

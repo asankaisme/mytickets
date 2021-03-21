@@ -19,7 +19,7 @@ class HomeController extends Controller
     public function index()
     {
         //user specific datasets
-        $allTickets = auth()->user()->ticket()->count();
+        $allTickets = auth()->user()->ticket()->where('isActive', '=', 1)->get()->count();
         $allCompletedTickets = auth()->user()->ticket()->select('*')->where('status', '=', 'COMPLETED')->where('isActive', '=', 1)->get()->count();
         $allAssignedTickets = auth()->user()->ticket()->select('*')->where('status', '=', 'ASSIGNED')->where('isActive', '=', 1)->get()->count();
         $allNewTickets = auth()->user()->ticket()->select('*')->where('status', '=', 'NEW')->where('isActive', '=', 1)->get()->count();

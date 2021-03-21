@@ -29,7 +29,7 @@
             <div class="card-body">
               <div class="tab-content">
                   <div class="active tab-pane" id="userlist">
-                      <table id="userList" class="table table-bordered table-striped table-hover table-sm">
+                      <table id="userList" class="table table-striped table-hover table-sm">
                           <thead>
                             <tr>
                               <td>#</td>
@@ -47,7 +47,7 @@
                                 <tr>
                                     <td>{{ $user->id }}</td>
                                     <td>{{ $user->name }}</td>
-                                    <td>{{ $user->roles->pluck('name') }}</td>
+                                    <td>{{ $user->roles->pluck('name')->implode('') }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->created_at->diffForHumans() }}</td>
                                     <td>{{ $user->updated_at->diffForHumans() }}</td>

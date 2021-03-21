@@ -1,6 +1,7 @@
 @extends('layouts.template')
 
 @section('content')
+@role('Client')
 <div class="col-md-11">
   <div class="border mb-3 py-2 text-white px-2" style="background-color: rgba(7, 145, 7, 0.705)">
     User Activities
@@ -56,9 +57,10 @@
         </div>
       </div>
     </div>
+  </div>
 </div>
-</div>
-<hr>
+@endrole
+
 <div class="col-md-11">
   <div class="border mb-3 py-2 text-white px-2" style="background-color: rgba(91, 120, 173, 0.705)">
     System Activities

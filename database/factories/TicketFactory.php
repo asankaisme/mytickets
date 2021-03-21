@@ -9,9 +9,9 @@ $factory->define(Ticket::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence(5),
         'body' => $faker->text(),
-        'img_name' => $faker->sentence(5),
-        'created_by' => 1,
-        'status' => 1,
+        // 'img_name' => $faker->sentence(5),
+        'created_by' => 4,
+        'status' => 'NEW',
         'isActive' => 1,
     ];
 });

@@ -69,4 +69,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(TicketComment::class);
     }
+
+    public function feedbackGivenTo()
+    {
+        return $this->hasMany(Feedback::class, 'given_to');
+    }
+
+    public function feedbackGivenBy()
+    {
+        return $this->hasMany(Feedback::class, 'given_by');
+    }
 }

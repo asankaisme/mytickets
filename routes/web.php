@@ -2,6 +2,7 @@
 
 use App\Ticket;
 use App\Mail\SendLevelTwoEmail;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -54,3 +55,6 @@ Route::get('/sendEmail', function(){
     Mail::to('email@email.com')->send(new SendLevelTwoEmail);
     // return new SendLevelTwoEmail();
 });
+
+Route::get('/laodView', 'PrintController@getStatusRep')->name('laodView');
+Route::get('/printStatus', 'PrintController@printStatusRpt')->name('printStatus');

@@ -30,6 +30,8 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'manage priorities']);
         Permission::create(['name' => 'view sysLog']);
         Permission::create(['name' => 'manage users']);
+        Permission::create(['name' => 'print reports']);
+        Permission::create(['name' => 'add feedback']);
 
         // create roles and assign existing permissions
         $client = Role::create(['name' => 'Client']);
@@ -37,12 +39,14 @@ class RolesSeeder extends Seeder
         $client->givePermissionTo('add ticket');
         $client->givePermissionTo('edit ticket');
         $client->givePermissionTo('delete ticket');
+        $client->givePermissionTo('add feedback');
 
         $coordinator = Role::create(['name' => 'Coordinator']);
         $coordinator->givePermissionTo('view ticket');
         $coordinator->givePermissionTo('assign ticket');
         $coordinator->givePermissionTo('manage headers');
         $coordinator->givePermissionTo('manage priorities');
+        $coordinator->givePermissionTo('print reports');
 
         $supportEng = Role::create(['name' => 'Support Engineer']);
         $supportEng->givePermissionTo('view ticket');
@@ -65,6 +69,7 @@ class RolesSeeder extends Seeder
         $admin->givePermissionTo('manage priorities');
         $admin->givePermissionTo('view sysLog');
         $admin->givePermissionTo('manage users');
+        $admin->givePermissionTo('print reports');
 
         Role::create(['name' => 'super-admin']);
 
