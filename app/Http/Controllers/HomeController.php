@@ -24,6 +24,10 @@ class HomeController extends Controller
         $allAssignedTickets = auth()->user()->ticket()->select('*')->where('status', '=', 'ASSIGNED')->where('isActive', '=', 1)->get()->count();
         $allNewTickets = auth()->user()->ticket()->select('*')->where('status', '=', 'NEW')->where('isActive', '=', 1)->get()->count();
         $allAcceptedTickets = auth()->user()->ticket()->select('*')->where('status', '=', 'ACCEPTED')->where('isActive', '=', 1)->get()->count();
+        //specially support engineer
+        $allSupEngAssignedTickets = auth()->user()->TicketsAssignedTo()->get()->count();
+        $allSupEngAcceptedTickets = auth()->user()->TicketsAssignedTo()->where('status', '=', 'ACCEPTED')->get()->count();
+        $allSupEngCompletedTickets = auth()->user()->TicketsAssignedTo()->where('status', '=', 'COMPLETED')->get()->count();
         // dd($allCompletedTickets);
         //system specific dataset
         $allSysTickets = Ticket::where('isActive', 1)->get()->count();
@@ -79,7 +83,10 @@ class HomeController extends Controller
             'allCriticalTickets',
             'allCriticalAssignedTickets',
             'allCriticalAccptedTickets',
-            'allCriticalCompletedTickets'
+            'allCriticalCompletedTickets',
+            'allSupEngAssignedTickets',
+            'allSupEngAcceptedTickets',
+            'allSupEngCompletedTickets'
         ));
     }
 }

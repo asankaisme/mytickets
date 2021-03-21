@@ -150,7 +150,7 @@
         @if ($ticket->status == "COMPLETED")
             <div class="card card-info">
                 <div class="card-header">
-                    Lap Report on ticket #{{ $ticket->id }}
+                    Lab Report on ticket #{{ $ticket->id }}
                 </div>
                 <div class="card-body">
                     <form action="{{ route('ticketComments.store') }}" method="post">
@@ -176,4 +176,13 @@
             
         @endif
     </div>
+    {{-- feedback section --}}
+    @if ($ticket->status == "COMPLETED")
+        <div class="row">
+            <div class="col-md-8">
+                
+            </div>
+        </div>
+    @endif
+    
 @endsection
