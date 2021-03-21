@@ -56,5 +56,9 @@ Route::get('/sendEmail', function(){
     // return new SendLevelTwoEmail();
 });
 
+Route::get('/faqs', function(){
+    return view('faq.index');
+})->name('faqs');
+
 Route::get('/laodView', 'PrintController@getStatusRep')->name('laodView');
 Route::get('/printStatus', 'PrintController@printStatusRpt')->name('printStatus');

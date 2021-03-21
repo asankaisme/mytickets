@@ -195,6 +195,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('faqs') }}" class="nav-link">
+              <i class="nav-icon fas fa-question-circle"></i>
+              <p>
+                FAQs
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
