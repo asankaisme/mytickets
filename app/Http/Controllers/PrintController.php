@@ -15,7 +15,7 @@ class PrintController extends Controller
 
     public function printStatusRpt()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::where('isActive', 1)->get();
         
         $pdf = App::make('snappy.pdf.wrapper');
         $title = 'Status Report';
