@@ -39,11 +39,11 @@ class Ticket extends Model
 
     public function comments()
     {
-        return $this->hasOne(TicketComment::class);
+        return $this->hasOne(TicketComment::class, 'ticket_id');
     }
 
     public function feedback()
     {
-        return $this->hasOne(Feedback::class);
+        return $this->hasOne(Feedback::class, 'ticket_id');
     }
 }

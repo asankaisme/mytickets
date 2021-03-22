@@ -40,7 +40,7 @@ class TicketAssignment extends Model
 
     public function ticketPriority()
     {
-        return $this->belongsTo(TicketPriority::class);
+        return $this->belongsTo(TicketPriority::class, 'ticket_priority_id');
     }
 
     public function assignedBy()

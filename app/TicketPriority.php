@@ -23,6 +23,6 @@ class TicketPriority extends Model
 
     public function ticketAssignment()
     {
-        return $this->hasMany(TicketAssignment::class);
+        return $this->hasMany(TicketAssignment::class, 'ticket_priority_id');
     }
 }
