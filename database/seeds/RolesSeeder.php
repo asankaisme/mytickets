@@ -40,6 +40,7 @@ class RolesSeeder extends Seeder
         $client->givePermissionTo('edit ticket');
         $client->givePermissionTo('delete ticket');
         $client->givePermissionTo('add feedback');
+        $client->givePermissionTo('print reports');
 
         $coordinator = Role::create(['name' => 'Coordinator']);
         $coordinator->givePermissionTo('view ticket');
@@ -70,6 +71,7 @@ class RolesSeeder extends Seeder
         $admin->givePermissionTo('view sysLog');
         $admin->givePermissionTo('manage users');
         $admin->givePermissionTo('print reports');
+        $admin->givePermissionTo('add feedback');
 
         Role::create(['name' => 'super-admin']);
 

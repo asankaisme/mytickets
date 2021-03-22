@@ -28,6 +28,7 @@
               <td>Assigned To</td>
               <td></td>
               <td></td>
+              <td>Fb</td>
               <td></td>
             </tr>
           </thead>
@@ -80,6 +81,11 @@
                         <span><i class="fas fa-paperclip"></i></span>
                     @else
                         -    
+                    @endif
+                  </td>
+                  <td>
+                    @if ($ticketAssignment->feedback)
+                      <span><i class="fas fa-check-circle"></i></span>
                     @endif
                   </td>
                   <td>

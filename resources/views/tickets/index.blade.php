@@ -11,11 +11,6 @@
   </div>
 @endsection
 
-
-
-
-
-
 @section('content')
   <div class="col-md-12">
     @can('add ticket')
@@ -42,6 +37,7 @@
               <td></td>
               <td>Assigned To</td>
               <td>Status</td>
+              <td>Fb</td>
               <td></td>
             </tr>
           </thead>
@@ -91,6 +87,11 @@
                     @endif
                   </td>
                   <td>{{ $ticket->status }}</td>
+                  <td>
+                    @if($ticket->feedback)
+                      <span><i class="fas fa-check-circle"></i></span>
+                    @endif
+                  </td>
                   <td>
                     <div class="btn-group btn-group-sm">
                       <a href="{{ route('tickets.show', $ticket->id) }}" title="View"><i class="fas fa-eye"></i></a>

@@ -237,12 +237,16 @@
         @endif
 
             
-                @if ($ticket->status == "COMPLETED")
-                <div class="card card-info">
+            @if ($ticket->status == "COMPLETED")
+                <div class="card card-info card-outline collapsed-card">
                     <div class="card-header">
-                        Lab Report
+                        Lab Report on Ticket #{{ $ticket->id }}
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="display: none">
                         <form action="{{ route('ticketComments.store') }}" method="post">
                             @csrf
                             {{-- @method('PUT') --}}
@@ -262,7 +266,44 @@
                         </form>
                     </div>
                 </div>
-                @endif
-                
+            @endif
+            @can('add feedback')
+                @if ($ticket->feedback)
+                    <div class="card card-warning card-outline collapsed-card">
+                        <div class="card-header">
+                            Feedback on Ticket #{{ $ticket->id }}
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" style="display: none;">
+                            <div class="form-group">
+                                <label for="">Rating</label>
+                                <div>
+                                    <span>
+                                        @for ($i = 0; $i < $ticket->feedback->level; $i++)
+                                            <i class="fas fa-star"></i>
+                                        @endfor
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedback">Feedback</label>
+                                <div>
+                                    <input type="text" name="feedback" disabled value="{{ $ticket->feedback->feedback }}" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SupEngName">Given to: <span style="color: gray">Support Engineer</span></label>
+                                <div>
+                                    <input type="text" name="feedback" disabled value="{{ $ticket->feedback->givenTo->name }}" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif 
+            @endcan
+           
     </div>
 @endsection

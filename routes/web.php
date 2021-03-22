@@ -62,3 +62,5 @@ Route::get('/faqs', function(){
 
 Route::get('/laodView', 'PrintController@getStatusRep')->name('laodView');
 Route::get('/printStatus', 'PrintController@printStatusRpt')->name('printStatus');
+
+Route::post('/addFeedback', 'FeedbackController@addFeedback')->name('addFeedback');

@@ -90,7 +90,6 @@
         <div class="card card-primary card-outline collapsed-card">
             <div class="card-header">
               <h3 class="card-title">Additional Information</h3>
-
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                 </button>
@@ -148,11 +147,15 @@
             <!-- /.card-body -->
         </div>
         @if ($ticket->status == "COMPLETED")
-            <div class="card card-info">
+            <div class="card card-info card-outline collapsed-card">
                 <div class="card-header">
-                    Lab Report on ticket #{{ $ticket->id }}
+                    Lab Report on Ticket #{{ $ticket->id }}
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="display: none;">
                     <form action="{{ route('ticketComments.store') }}" method="post">
                         @csrf
                         {{-- @method('PUT') --}}
@@ -175,62 +178,131 @@
         @else
             
         @endif
+        @can('add feedback')
+            @if ($ticket->status == "COMPLETED")
+                @if ($ticket->feedback)
+                    <div class="card card-warning card-outline collapsed-card">
+                        <div class="card-header">
+                            Feedback on Ticket #{{ $ticket->id }}
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" style="display: none;">
+                            <div class="form-group">
+                                <label for="">Rating</label>
+                                <div>
+                                    <span>
+                                        @for ($i = 0; $i < $ticket->feedback->level; $i++)
+                                            <i class="fas fa-star"></i>
+                                        @endfor
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedback">Feedback</label>
+                                <div>
+                                    <input type="text" name="feedback" disabled value="{{ $ticket->feedback->feedback }}" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SupEngName">Given to: <span style="color: gray">Support Engineer</span></label>
+                                <div>
+                                    <input type="text" name="feedback" disabled value="{{ $ticket->feedback->givenTo->name }}" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endif
+        @endcan
+        
     </div>
+
     {{-- feedback section --}}
-    @if ($ticket->status == "COMPLETED")
-        <div class="col-md-12">
-            <div class="border mb-3 py-2 text-white px-2" style="background-color: rgba(38, 91, 238, 0.705)">
-                User Feedback <span><i class="fas fa-angle-double-right" style="color: honeydew"></i> Tell us what you feel</span>
-            </div>
-            <div class="border mb-3 py-2 px-2" style="background-color: rgba(212, 239, 255, 0.705)">
-                Please select the level you satisfied with the service provided by the Support Engineer?
-                <div class="border mb-3 py-2 px-2 mt-2" style="background-color: rgb(255, 254, 254)">
-                    <form action="#" method="post">
-                        @csrf
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <input type="radio" name="level" id="smile1" value="1">
-                                    <span><i class="fas fa-sad-tear"></i></span>
-                                    <label for="smile1">Dissapointed</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <input type="radio" name="level" id="smile2" value="2">
-                                    <span><i class="fas fa-frown"></i></span>
-                                    <label for="smile2">Sad</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <input type="radio" name="level" id="smile3" value="3">
-                                    <span><i class="fas fa-meh"></i></span>
-                                    <label for="smile3">Nutral</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <input type="radio" name="level" id="smile4" value="4">
-                                    <span><i class="fas fa-smile"></i></span>
-                                    <label for="smile4">Happy</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <input type="radio" name="level" id="smile5" value="5">
-                                    <span><i class="fas fa-laugh-squint"></i></span>
-                                    <label for="smile5">Very Happy</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <input type="text" name="feedback" placeholder="Tell us little about it.">
-                        </div>
-                    </form>
+    @can('add feedback')
+        @if ($ticket->status == "COMPLETED")
+        @if ($ticket->feedback)
+            
+        @else
+            <div class="col-md-12">
+                <div class="border mb-3 py-2 px-2 text-white" style="background-color: rgba(124, 46, 10, 0.705)">
+                    User Feedback <span><i class="fas fa-angle-double-right" style="color: honeydew"></i> Tell us what you feel</span>
                 </div>
+                <div class="border mb-3 py-2 px-2" style="background-color: rgba(252, 229, 186, 0.705)">
+                    Please select the level you satisfied with the service provided by the Support Engineer?
+                    <div>
+                        Don't worry!! We won't tell this to anyone..
+                    </div>
+                    
+                    <div class="border mb-3 py-2 px-2 mt-2" style="background-color: rgb(255, 254, 254)">
+                        <form action="{{ route('addFeedback') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="ticketID" value="{{ $ticket->id }}">
+                            <input type="hidden" name="SupEngID" value="{{ $ticket->ticketAssignment->assignedTo->id }}">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <input type="radio" name="level" id="smile1" value="1">
+                                        <span><i class="fas fa-sad-tear"></i></span>
+                                        <label for="smile1">Dissapointed</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <input type="radio" name="level" id="smile2" value="2">
+                                        <span><i class="fas fa-frown"></i></span>
+                                        <label for="smile2">Sad</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <input type="radio" name="level" id="smile3" value="3">
+                                        <span><i class="fas fa-meh"></i></span>
+                                        <label for="smile3">Nutral</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <input type="radio" name="level" id="smile4" value="4">
+                                        <span><i class="fas fa-smile"></i></span>
+                                        <label for="smile4">Happy</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <input type="radio" name="level" id="smile5" value="5">
+                                        <span><i class="fas fa-laugh-squint"></i></span>
+                                        <label for="smile5">Very Happy</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <input type="text" name="feedback" placeholder="Tell us little about it." class="form-control form-control-sm">
+                                    <input type="submit" value="Rate!" class="btn btn-info btn-sm mt-2 float-right">
+                                    <input type="reset" value="Clear" class="btn btn-outline-dark btn-sm mt-2 float-right mx-2">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {{-- show flash message --}}
+                @if (session()->has('message'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{ session('message') }}
+                    </div>
+                @endif
+                {{-- end flash message --}}
             </div>
-        </div>
-    @endif
+        @endif
+        
+        @endif
+    @endcan
+    
     
 @endsection
