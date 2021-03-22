@@ -17,7 +17,7 @@ class CreateFeedbackTable extends Migration
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('ticket_id')->nullable();
-            $table->integer('level');
+            $table->string('level');
             $table->string('feedback', 255);
             $table->unsignedBigInteger('given_by')->nullable();
             $table->unsignedBigInteger('given_to')->nullable();
