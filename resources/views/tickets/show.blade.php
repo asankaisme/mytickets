@@ -178,45 +178,45 @@
     </div>
     {{-- feedback section --}}
     @if ($ticket->status == "COMPLETED")
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="border mb-3 py-2 text-white px-2" style="background-color: rgba(38, 91, 238, 0.705)">
                 User Feedback <span><i class="fas fa-angle-double-right" style="color: honeydew"></i> Tell us what you feel</span>
             </div>
             <div class="border mb-3 py-2 px-2" style="background-color: rgba(212, 239, 255, 0.705)">
                 Please select the level you satisfied with the service provided by the Support Engineer?
-                <div class="border mb-3 py-2 px-2" style="background-color: rgb(255, 254, 254)">
+                <div class="border mb-3 py-2 px-2 mt-2" style="background-color: rgb(255, 254, 254)">
                     <form action="#" method="post">
                         @csrf
                         <div class="row">
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="radio" name="level" id="smile1" value="1">
                                     <span><i class="fas fa-sad-tear"></i></span>
-                                    <label for="smile1">Very Sad</label>
+                                    <label for="smile1">Dissapointed</label>
                                 </div>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="radio" name="level" id="smile2" value="2">
                                     <span><i class="fas fa-frown"></i></span>
-                                    <label for="smile2">Sad but OK</label>
+                                    <label for="smile2">Sad</label>
                                 </div>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="radio" name="level" id="smile3" value="3">
                                     <span><i class="fas fa-meh"></i></span>
                                     <label for="smile3">Nutral</label>
                                 </div>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="radio" name="level" id="smile4" value="4">
                                     <span><i class="fas fa-smile"></i></span>
                                     <label for="smile4">Happy</label>
                                 </div>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="radio" name="level" id="smile5" value="5">
                                     <span><i class="fas fa-laugh-squint"></i></span>
