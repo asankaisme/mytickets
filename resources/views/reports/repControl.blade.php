@@ -28,7 +28,7 @@
             Current Summary Report :
         </div>
         <div class="col-sm-2">
-            <a href="#" class="btn btn-outline-info btn-sm" target="_blank">Print</a>
+            <a href="{{ route('printSummary') }}" class="btn btn-outline-info btn-sm" target="_blank">Print</a>
         </div>
     </div>
     <hr>
