@@ -77,7 +77,7 @@ class RolesSeeder extends Seeder
 
         //create sys admin user
         $user = User::create([
-            'name' => 'Sys Admin',
+            'name' => 'admin',
             'email' => 'admin@mytickets.com',
             'password' => Hash::make('asdf1234'),
         ]);
@@ -86,7 +86,7 @@ class RolesSeeder extends Seeder
         $user = User::create([
             'name' => 'asanka rubasinghe',
             'email' => 'asankaisme@mytickets.com',
-            'password' => Hash::make('asanka123'),
+            'password' => Hash::make('asdf1234'),
         ]);
         $user->assignRole($admin);
 

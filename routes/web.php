@@ -65,3 +65,5 @@ Route::get('/printStatus', 'PrintController@printStatusRpt')->name('printStatus'
 Route::get('/printSummary', 'PrintController@printSumRpt')->name('printSummary');
 
 Route::post('/addFeedback', 'FeedbackController@addFeedback')->name('addFeedback');
+
+Route::get('/kpis', 'KpiController@index')->name('kpis');

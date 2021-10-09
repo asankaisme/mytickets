@@ -109,6 +109,10 @@
   </div>
 @endrole
 
+@role('Coordinator')
+
+@endrole
+
 <div class="col-md-11">
   <div class="border mb-3 py-2 text-white px-2" style="background-color: rgba(91, 120, 173, 0.705)">
     System Activities

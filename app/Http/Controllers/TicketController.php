@@ -10,25 +10,28 @@ use Illuminate\Support\Facades\Storage;
 
 class TicketController extends Controller
 {
-    
+    //this method initializes authenticating module
     public function _construct()
     {
         return $this->middleware('auth');
     }
 
+    //creates the index view with active tickets
     public function index()
     {
         $tickets = auth()->user()->ticket->where('isActive', 1);
         return view('tickets.index', compact('tickets'));
     }
 
-    
+    //load the view for form request
+    //http GET method
     public function create()
     {
         return view('tickets.create');
     }
 
-    
+    //http POST method
+    //stores ticket details in db.tickets tablesphp
     public function store(Request $request)
     {
         $request->validate([
@@ -54,14 +57,14 @@ class TicketController extends Controller
         return redirect()->route('tickets.index');
     }
 
-    
+    //Method for showing a list of tickets
     public function show(Ticket $ticket)
     {
         $users = User::all();
         return view('tickets.show', compact('ticket', 'users'));
     }
 
-    
+    //Tickets edit
     public function edit(Ticket $ticket)
     {
         // dd($ticket->id);

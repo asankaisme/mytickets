@@ -185,6 +185,18 @@
               </a>
             </li>
           @endcan
+
+          @role('coordinator', 'admin')
+          <li class="nav-header">Performance</li>
+          <li class="nav-item">
+            <a href="{{ route('kpis') }}" class="nav-link">
+              <i class="nav-icon fas fa-clipboard-list"></i>
+              <p>
+                KPI
+              </p>
+            </a>
+          </li>
+          @endrole
           
           <li class="nav-header">Knowledge Base</li>
           <li class="nav-item">
